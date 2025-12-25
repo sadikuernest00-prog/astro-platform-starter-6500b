@@ -1,3 +1,4 @@
+
 ---
 const base = import.meta.env.BASE_URL ?? "/";
 ---
@@ -64,6 +65,7 @@ const base = import.meta.env.BASE_URL ?? "/";
 
       .hero-main h1 { margin:0 0 12px; font-size:36px; }
       .hero-main p { margin:0 0 20px; font-size:16px; color:var(--text-muted); max-width:520px; }
+
       .hero-cta { display:flex; gap:12px; flex-wrap:wrap; }
 
       .btn-primary {
@@ -77,15 +79,15 @@ const base = import.meta.env.BASE_URL ?? "/";
         cursor:pointer;
       }
 
-      .btn-whatsapp {
-        border:1px solid #25D366;
-        background:#e9fff2;
-        color:#1b8f48;
-        padding:10px 18px;
-        border-radius:999px;
-        font-size:14px;
-        font-weight:600;
-        cursor:pointer;
+      .btn-secondary {
+        background: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary-soft);
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: 500;
       }
 
       .hero-card {
@@ -96,9 +98,13 @@ const base = import.meta.env.BASE_URL ?? "/";
         font-size:14px;
       }
 
-      .hero-card-row { display:flex; justify-content:space-between; margin-bottom:8px; }
-      .muted { color:var(--text-muted); }
+      .hero-card-row {
+        display:flex;
+        justify-content:space-between;
+        margin-bottom:8px;
+      }
 
+      .muted { color: var(--text-muted); }
       h2.section-title { font-size:22px; margin-top:40px; margin-bottom:12px; }
 
       .grid-3 {
@@ -116,7 +122,6 @@ const base = import.meta.env.BASE_URL ?? "/";
       }
 
       .card h3 { margin:0 0 8px; font-size:16px; }
-
       .list { margin:0; padding-left:18px; color:var(--text-muted); }
       .list li { margin-bottom:4px; }
 
@@ -167,6 +172,7 @@ const base = import.meta.env.BASE_URL ?? "/";
       <nav>
         <a href="#how-it-works">How it works</a>
         <a href="#products">Products</a>
+        <a href="#agreements">Agreements</a>
         <a href="#safety">Safety</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -176,15 +182,21 @@ const base = import.meta.env.BASE_URL ?? "/";
       <section class="hero">
         <div class="hero-main">
           <h1>Lend. Borrow. Invest. Share the profit.</h1>
-          <p>AmicBridge connects people who want to grow their money with people who need fair, transparent financing.</p>
+
+          <p>
+            AmicBridge connects people who want to grow their money with people
+            who need fair and transparent financing. Every deal through the
+            AmicBridge network is supported by a written loan or investment
+            agreement, so expectations are clear for everyone involved.
+          </p>
 
           <div class="hero-cta">
-            <a href="https://wa.me/4792928373" target="_blank" rel="noopener">
-              <button class="btn-whatsapp">📱 Chat on WhatsApp</button>
+            <a href="#contact">
+              <button class="btn-primary">Contact CEO</button>
             </a>
 
-            <a href="#contact">
-              <button class="btn-primary">Email the CEO</button>
+            <a href="#products">
+              <button class="btn-secondary">Explore Opportunities</button>
             </a>
           </div>
         </div>
@@ -192,7 +204,7 @@ const base = import.meta.env.BASE_URL ?? "/";
         <aside class="hero-card">
           <div class="hero-card-row"><span class="muted">Platform</span><strong>P2P Lending & Investment</strong></div>
           <div class="hero-card-row"><span class="muted">Model</span><span>Profit Sharing</span></div>
-          <div class="hero-card-row"><span class="muted">Focus</span><span>Transparent Agreements</span></div>
+          <div class="hero-card-row"><span class="muted">Focus</span><span>Written, Transparent Agreements</span></div>
         </aside>
       </section>
 
@@ -200,9 +212,9 @@ const base = import.meta.env.BASE_URL ?? "/";
         <h2 class="section-title">How AmicBridge works</h2>
 
         <div class="grid-3">
-          <div class="card"><h3>1. Lend & invest</h3><p>Provide capital with clear terms.</p></div>
-          <div class="card"><h3>2. Borrow</h3><p>Structured funding for real projects.</p></div>
-          <div class="card"><h3>3. Share profit</h3><p>Fair distribution when success happens.</p></div>
+          <div class="card"><h3>1. Lend & invest</h3><p>Provide capital with clear terms agreed in writing.</p></div>
+          <div class="card"><h3>2. Borrow</h3><p>Funding for projects with structured repayment.</p></div>
+          <div class="card"><h3>3. Share profit</h3><p>Fair profit sharing when projects succeed.</p></div>
         </div>
       </section>
 
@@ -210,9 +222,50 @@ const base = import.meta.env.BASE_URL ?? "/";
         <h2 class="section-title">Opportunities</h2>
 
         <div class="grid-3">
-          <div class="card"><h3>Lending</h3><ul class="list"><li>Fixed term</li><li>Clear returns</li><li>Written agreements</li></ul></div>
-          <div class="card"><h3>Borrowing</h3><ul class="list"><li>Project-backed</li><li>Transparent repayment</li><li>Structured</li></ul></div>
-          <div class="card"><h3>Profit sharing</h3><ul class="list"><li>Aligned incentives</li><li>Performance-based</li><li>No hidden tricks</li></ul></div>
+          <div class="card">
+            <h3>Lending</h3>
+            <ul class="list">
+              <li>Fixed-term lending</li>
+              <li>Clear returns</li>
+              <li>Formal agreements</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Borrowing</h3>
+            <ul class="list">
+              <li>Project-based funding</li>
+              <li>Transparent repayment</li>
+              <li>Legal clarity</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Profit sharing</h3>
+            <ul class="list">
+              <li>Aligned incentives</li>
+              <li>Performance-based returns</li>
+              <li>Written terms</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="agreements">
+        <h2 class="section-title">Loan & Investment Agreements</h2>
+
+        <div class="card">
+          <p class="muted">
+            When you make a deal through the AmicBridge network, you are not just “shaking hands online”.
+            AmicBridge provides a structured written agreement for the deal.
+          </p>
+
+          <ul class="list">
+            <li>Loan agreements for lending deals</li>
+            <li>Investment or profit-sharing agreements for investment deals</li>
+            <li>Clear description of responsibilities and expectations</li>
+            <li>Protects both sides and avoids misunderstandings</li>
+          </ul>
         </div>
       </section>
 
@@ -222,19 +275,20 @@ const base = import.meta.env.BASE_URL ?? "/";
         <div class="two-col">
           <div>
             <p class="muted">
-              Lending and investing involve financial risk. AmicBridge focuses on clarity and honesty.
+              Lending and investing involve real financial risk. AmicBridge focuses on clarity,
+              agreements, and structure so people understand what they are doing.
             </p>
 
             <ul class="list">
-              <li>Written structured agreements</li>
-              <li>Clear expectations</li>
-              <li>No hidden fees</li>
+              <li>Every deal comes with a written agreement</li>
+              <li>Clear expectations and timelines</li>
+              <li>No hidden small print tricks</li>
             </ul>
           </div>
 
           <div class="notice">
             <strong>Important:</strong><br />
-            Not a traditional bank. Returns are not guaranteed. Only invest what you can afford to lose.
+            AmicBridge is not a traditional bank. Returns are not guaranteed. Only commit money you can afford to risk.
           </div>
         </div>
       </section>
@@ -254,15 +308,8 @@ const base = import.meta.env.BASE_URL ?? "/";
               </a>
             </p>
 
-            <p style="margin-top:6px;">
-              WhatsApp:
-              <a href="https://wa.me/4792928373" target="_blank" rel="noopener">
-                +47 929 28 373
-              </a>
-            </p>
-
             <p class="muted" style="margin-top:10px;">
-              Say whether you want to lend, borrow or invest and your idea.
+              Send whether you want to lend, borrow or invest and what type of deal you are interested in.
             </p>
           </div>
 
@@ -270,7 +317,7 @@ const base = import.meta.env.BASE_URL ?? "/";
             <h3>Include in your message</h3>
             <ul class="list">
               <li>Your intent (lend / borrow / invest)</li>
-              <li>Amount</li>
+              <li>Approximate amount</li>
               <li>Time frame</li>
             </ul>
           </div>
