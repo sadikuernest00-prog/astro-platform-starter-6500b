@@ -1,19 +1,441 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Markdown from '../components/Markdown.astro';
-
-const explainer = `
-An Astro website can go way beyond static pages - on the right platform.
-
-Netlify supports not only [Streaming SSR](https://docs.astro.build/en/guides/server-side-rendering/#html-streaming) and fast [Edge Middleware](https://docs.astro.build/en/guides/middleware/), but also [on-demand revalidation](https://www.netlify.com/blog/cache-tags-and-purge-api-on-netlify/) and [stale-while-revalidate](https://www.netlify.com/blog/swr-and-fine-grained-cache-control/). 
-Any page or data can be rebuilt only when needed, without site visitors ever getting a performance hit.
-`;
+const base = import.meta.env.BASE_URL ?? "/";
 ---
 
-<Layout title="Welcome to Astro.">
-    <h1 class="mb-10">Netlify Platform Starter for Astro</h1>
-    <Markdown content={explainer} class="mb-10 text-lg" />
-    <p>
-        <a href="https://docs.netlify.com/frameworks/astro/" class="btn btn-lg sm:min-w-64">Read the Docs</a>
-    </p>
-</Layout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>AmicBridge – Lend, Borrow, Invest, Share Profit</title>
+    <meta
+      name="description"
+      content="AmicBridge is a modern platform where people can lend, borrow, invest and share profits in a transparent and structured way."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      :root {
+        --bg: #f3f4f6;
+        --white: #ffffff;
+        --primary: #1d4ed8;
+        --primary-soft: #e0e7ff;
+        --border: #d1d5db;
+        --text-main: #111827;
+        --text-muted: #6b7280;
+        --danger: #b91c1c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text-main);
+      }
+
+      a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      header {
+        background: var(--white);
+        border-bottom: 1px solid var(--border);
+        padding: 16px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo {
+        font-weight: 800;
+        font-size: 20px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .logo span {
+        color: var(--primary);
+      }
+
+      nav {
+        display: flex;
+        gap: 24px;
+        font-size: 14px;
+      }
+
+      nav a {
+        color: var(--text-main);
+        font-weight: 500;
+      }
+
+      .container {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 32px 16px 56px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        gap: 40px;
+        align-items: center;
+        margin-top: 24px;
+      }
+
+      .hero-main h1 {
+        font-size: 36px;
+        margin: 0 0 12px;
+      }
+
+      .hero-main p {
+        margin: 0 0 20px;
+        font-size: 16px;
+        color: var(--text-muted);
+        max-width: 520px;
+      }
+
+      .hero-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: #fff;
+        border: 1px solid var(--primary);
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary-soft);
+        padding: 10px 18px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .hero-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        padding: 18px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+
+      .hero-card-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+
+      .muted {
+        color: var(--text-muted);
+      }
+
+      h2.section-title {
+        font-size: 22px;
+        margin-top: 40px;
+        margin-bottom: 12px;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .card {
+        background: var(--white);
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        padding: 16px 18px;
+        font-size: 14px;
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 16px;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--text-muted);
+        line-height: 1.4;
+      }
+
+      .list {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--text-muted);
+      }
+
+      .list li {
+        margin-bottom: 4px;
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        gap: 24px;
+      }
+
+      .notice {
+        background: #fef2f2;
+        border: 1px solid #fee2e2;
+        color: var(--danger);
+        padding: 12px 14px;
+        border-radius: 6px;
+        font-size: 13px;
+      }
+
+      .contact-card {
+        background: var(--white);
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        padding: 16px 18px;
+        font-size: 14px;
+      }
+
+      .contact-card h3 {
+        margin: 0 0 8px;
+        font-size: 16px;
+      }
+
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 16px 32px;
+        font-size: 12px;
+        color: var(--text-muted);
+        background: var(--white);
+      }
+
+      @media (max-width: 900px) {
+        header {
+          padding: 12px 16px;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+        .hero-main h1 {
+          font-size: 28px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">
+        AMIC<span>BRIDGE</span>
+      </div>
+
+      <nav>
+        <a href="#how-it-works">How it works</a>
+        <a href="#products">Products</a>
+        <a href="#safety">Safety</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <div class="container">
+      <section class="hero">
+        <div class="hero-main">
+          <h1>Lend. Borrow. Invest. Share the profit.</h1>
+          <p>
+            AmicBridge connects people who want to grow their money with people
+            who need fair, transparent financing. Built like a bank, without
+            the bank attitude.
+          </p>
+
+          <div class="hero-cta">
+            <a href="#contact">
+              <button type="button" class="btn-primary">
+                Talk to the CEO
+              </button>
+            </a>
+
+            <a href="#products">
+              <button type="button" class="btn-secondary">
+                Explore lending & investing
+              </button>
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Platform overview">
+          <div class="hero-card-row">
+            <span class="muted">Platform type</span>
+            <strong>P2P lending & investing</strong>
+          </div>
+          <div class="hero-card-row">
+            <span class="muted">Model</span>
+            <span>Profit sharing</span>
+          </div>
+          <div class="hero-card-row">
+            <span class="muted">Focus</span>
+            <span>Simple, transparent deals</span>
+          </div>
+        </aside>
+      </section>
+
+      <section id="how-it-works">
+        <h2 class="section-title">How AmicBridge works</h2>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>1. Lend & invest</h3>
+            <p>
+              Individuals and companies can provide capital as loans or
+              investments. Terms are agreed clearly up front: amount, duration,
+              and expected return.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>2. Borrow & grow</h3>
+            <p>
+              Borrowers get access to funding for projects, inventory, or
+              working capital. Repayment schedules and interest are structured
+              in a way that is clear and predictable.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>3. Share the profit</h3>
+            <p>
+              When projects perform well, profit is shared according to the
+              agreed terms – so everyone is aligned and understands how value is
+              created.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="products">
+        <h2 class="section-title">What you can do on AmicBridge</h2>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>Lend</h3>
+            <ul class="list">
+              <li>Provide fixed-term loans to vetted borrowers</li>
+              <li>Earn agreed interest or profit share</li>
+              <li>See key information before you commit</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Borrow</h3>
+            <ul class="list">
+              <li>Apply for structured funding for real projects</li>
+              <li>Clear repayment terms, no hidden fees</li>
+              <li>Direct communication with the platform</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Invest & share profit</h3>
+            <ul class="list">
+              <li>Participate in profit-sharing deals</li>
+              <li>Follow performance and payouts</li>
+              <li>Aligned incentives between all parties</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="safety">
+        <h2 class="section-title">Safety, transparency and risk</h2>
+
+        <div class="two-col">
+          <div>
+            <p class="muted">
+              There is always risk when you lend or invest money. AmicBridge is
+              built to make that risk visible and to keep terms simple and
+              understandable.
+            </p>
+            <ul class="list">
+              <li>Structured, written agreements for every deal</li>
+              <li>Clear information about returns and time horizon</li>
+              <li>No “surprise” fees hidden in the small print</li>
+              <li>Direct contact with the platform when something is unclear</li>
+            </ul>
+          </div>
+
+          <div class="notice">
+            <strong>Important:</strong>
+            <br />
+            AmicBridge is not a traditional bank. Lending and investing can lead
+            to loss of money. Never invest more than you can afford to lose, and
+            always read the terms carefully before you commit.
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2 class="section-title">Contact & next steps</h2>
+
+        <div class="two-col">
+          <div class="contact-card">
+            <h3>Talk directly with the CEO</h3>
+            <p>
+              AmicBridge is led by <strong>Habbitx</strong> (CEO). For serious
+              questions about lending, borrowing or partnership deals, you can
+              reach out directly by e-mail.
+            </p>
+
+            <p style="margin-top:10px;">
+              Email:
+              <a href="mailto:robert@amicolsen.com">robert@amicolsen.com</a>
+            </p>
+
+            <p class="muted" style="margin-top:10px;">
+              Send a short description of who you are, what you are looking
+              for (lend, borrow, invest, or profit-share), and your preferred
+              contact details.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>What to include in your message</h3>
+            <ul class="list">
+              <li>Are you a lender, borrower, or investor?</li>
+              <li>Approximate amount you want to lend/borrow/invest</li>
+              <li>Time horizon (months or years)</li>
+              <li>Any specific ideas or projects you have in mind</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <div>© {new Date().getFullYear()} AmicBridge. All rights reserved.</div>
+      <div>This page is informational and does not constitute financial advice.</div>
+    </footer>
+  </body>
+</html>
