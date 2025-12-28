@@ -1,5 +1,4 @@
 ---
-const base = import.meta.env.BASE_URL ?? "/";
 const year = new Date().getFullYear();
 ---
 
@@ -7,10 +6,10 @@ const year = new Date().getFullYear();
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>AmicBridge – Trust Before Money</title>
+    <title>AmicBridge – Structured Lending, Borrowing & Investing</title>
     <meta
       name="description"
-      content="AmicBridge is a simple, structured place to lend, borrow and invest with written agreements and clear profit sharing."
+      content="AmicBridge is a structured private network where people lend, borrow and invest with written agreements, clear expectations and shared profit."
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -19,17 +18,20 @@ const year = new Date().getFullYear();
         --bg: #f3f4f6;
         --white: #ffffff;
         --primary: #1d4ed8;
+        --primary-dark: #1e3a8a;
         --border: #d1d5db;
         --text-main: #111827;
         --text-muted: #6b7280;
-        --accent: #16a34a;
+        --success-bg: #ecfdf3;
+        --success-border: #bbf7d0;
+        --success-text: #166534;
       }
 
       * { box-sizing: border-box; }
 
       body {
         margin: 0;
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        font-family: system-ui, -apple-system, Segoe UI, Arial, sans-serif;
         background: var(--bg);
         color: var(--text-main);
       }
@@ -40,11 +42,14 @@ const year = new Date().getFullYear();
       header {
         background: var(--white);
         border-bottom: 1px solid var(--border);
-        padding: 16px 32px;
+        padding: 14px 24px;
         display: flex;
-        align-items: center;
         justify-content: space-between;
+        align-items: center;
+        gap: 16px;
       }
+
+      .brand-block { display: flex; flex-direction: column; gap: 4px; }
 
       .logo {
         font-weight: 800;
@@ -52,30 +57,34 @@ const year = new Date().getFullYear();
         letter-spacing: 0.08em;
         text-transform: uppercase;
       }
-      .logo span { color: var(--primary); }
+
+      .logo span { color: var(--primary-dark); }
+
+      .top-meta {
+        font-size: 11px;
+        color: var(--text-muted);
+      }
 
       nav {
         display: flex;
-        gap: 20px;
+        gap: 18px;
         font-size: 14px;
+        flex-wrap: wrap;
       }
 
-      nav a {
-        color: var(--text-main);
-        font-weight: 500;
-      }
+      nav a { color: var(--text-main); font-weight: 500; }
 
       .container {
         max-width: 960px;
         margin: 0 auto;
-        padding: 32px 16px 56px;
+        padding: 28px 16px 52px;
       }
 
       .hero {
         margin-top: 24px;
         display: grid;
         grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-        gap: 32px;
+        gap: 28px;
         align-items: center;
       }
 
@@ -87,50 +96,36 @@ const year = new Date().getFullYear();
         border-radius: 999px;
         background: #e0f2fe;
         color: #0369a1;
-        font-size: 12px;
-        font-weight: 600;
+        font-size: 11px;
+        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.08em;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
       }
 
-      .hero h1 {
-        margin: 0 0 8px;
-        font-size: 34px;
-      }
+      .hero h1 { margin: 0 0 8px; font-size: 32px; }
+      .hero-subtitle { margin: 0 0 16px; font-size: 15px; color: var(--text-muted); max-width: 520px; }
 
-      .hero p {
-        margin: 0 0 20px;
-        font-size: 15px;
-        color: var(--text-muted);
-        max-width: 480px;
-      }
-
-      .hero-cta {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
+      .hero-cta { display: flex; gap: 10px; flex-wrap: wrap; }
 
       .btn-primary {
-        border: 1px solid var(--primary);
-        background: var(--primary);
-        color: #fff;
-        padding: 10px 18px;
         border-radius: 999px;
+        padding: 9px 16px;
+        border: 1px solid var(--primary-dark);
+        background: var(--primary-dark);
+        color: #fff;
+        cursor: pointer;
         font-size: 14px;
         font-weight: 600;
-        cursor: pointer;
       }
 
       .btn-secondary {
+        border-radius: 999px;
+        padding: 9px 16px;
         border: 1px solid var(--border);
         background: var(--white);
         color: var(--text-main);
-        padding: 10px 18px;
-        border-radius: 999px;
-        font-size: 14px;
         cursor: pointer;
+        font-size: 14px;
         font-weight: 500;
       }
 
@@ -138,35 +133,25 @@ const year = new Date().getFullYear();
         background: var(--white);
         border-radius: 8px;
         border: 1px solid var(--border);
-        padding: 16px 18px;
+        padding: 14px 16px;
         font-size: 13px;
       }
 
-      .hero-card h3 {
-        margin: 0 0 10px;
-        font-size: 15px;
-      }
+      .hero-card h3 { margin: 0 0 8px; font-size: 15px; }
 
-      .pill-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
+      .hero-pill-row { display: flex; flex-wrap: wrap; gap: 6px; }
 
-      .pill {
-        padding: 4px 10px;
+      .hero-pill {
+        padding: 4px 9px;
         border-radius: 999px;
         border: 1px solid var(--border);
         background: #f9fafb;
-        font-size: 12px;
+        font-size: 11px;
         color: var(--text-muted);
       }
 
-      h2.section-title {
-        font-size: 20px;
-        margin-top: 40px;
-        margin-bottom: 12px;
-      }
+      h2.section-title { font-size: 20px; margin-top: 40px; margin-bottom: 8px; }
+      .section-sub { margin: 0 0 12px; font-size: 13px; color: var(--text-muted); }
 
       .grid-3 {
         display: grid;
@@ -182,15 +167,8 @@ const year = new Date().getFullYear();
         font-size: 14px;
       }
 
-      .card h3 {
-        margin: 0 0 6px;
-        font-size: 15px;
-      }
-
-      .card p {
-        margin: 0;
-        color: var(--text-muted);
-      }
+      .card h3 { margin: 0 0 6px; font-size: 15px; }
+      .card p { margin: 0; color: var(--text-muted); }
 
       .list {
         margin: 6px 0 0;
@@ -199,9 +177,7 @@ const year = new Date().getFullYear();
         font-size: 13px;
       }
 
-      .list li {
-        margin-bottom: 3px;
-      }
+      .list li { margin-bottom: 3px; }
 
       .two-col {
         display: grid;
@@ -209,217 +185,248 @@ const year = new Date().getFullYear();
         gap: 18px;
       }
 
-      .badge-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 6px;
-      }
+      .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 
       .badge {
         font-size: 11px;
         padding: 4px 10px;
         border-radius: 999px;
-        background: #ecfdf3;
-        border: 1px solid #bbf7d0;
-        color: #166534;
-      }
-
-      .notice {
-        background: #fef2f2;
-        border-radius: 8px;
-        border: 1px solid #fee2e2;
-        padding: 12px 14px;
-        font-size: 12px;
-        color: #991b1b;
+        background: var(--success-bg);
+        border: 1px solid var(--success-border);
+        color: var(--success-text);
       }
 
       .contact-card {
         background: var(--white);
         border-radius: 8px;
         border: 1px solid var(--border);
-        padding: 16px 18px;
+        padding: 14px 16px;
         font-size: 14px;
       }
 
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .step { font-size: 13px; color: var(--text-muted); }
+      .step strong { display: block; color: var(--text-main); margin-bottom: 2px; }
+
       footer {
-        border-top: 1px solid var(--border);
-        padding: 14px 24px;
-        font-size: 12px;
-        background: var(--white);
+        font-size: 11px;
         color: var(--text-muted);
+        border-top: 1px solid var(--border);
+        padding: 12px 24px;
+        background: var(--white);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
       }
 
       @media (max-width: 900px) {
-        header {
-          padding: 12px 16px;
-        }
-        .hero {
-          grid-template-columns: 1fr;
-        }
-        .grid-3 {
-          grid-template-columns: 1fr;
-        }
-        .two-col {
-          grid-template-columns: 1fr;
-        }
-        .hero h1 {
-          font-size: 28px;
-        }
+        header { flex-direction: column; align-items: flex-start; gap: 6px; }
+        .hero { grid-template-columns: 1fr; }
+        .grid-3 { grid-template-columns: 1fr; }
+        .two-col { grid-template-columns: 1fr; }
+        .steps { grid-template-columns: 1fr; }
+        .hero h1 { font-size: 26px; }
       }
     </style>
   </head>
 
   <body>
     <header>
-      <div class="logo">AMIC<span>BRIDGE</span></div>
+      <div class="brand-block">
+        <div class="logo">AMIC<span>BRIDGE</span></div>
+        <div class="top-meta">
+          Based in Norway · Private lending & investing network
+        </div>
+      </div>
 
       <nav>
         <a href="#how">How it works</a>
-        <a href="#trust">Trust</a>
+        <a href="#who">Who it is for</a>
+        <a href="#trust">Trust & agreements</a>
         <a href="#currency">Currency</a>
+        <a href="#stablecoin">Stablecoin</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
 
     <div class="container">
-      <!-- HERO -->
       <section class="hero">
         <div>
-          <div class="trust-tag">✔ TRUST BEFORE MONEY</div>
+          <div class="trust-tag"><span>✔</span> TRUST BEFORE MONEY</div>
 
-          <h1>Lend. Borrow. Invest. Share profit.</h1>
+          <h1>Structured lending, borrowing and investing between people.</h1>
 
-          <p>
-            AmicBridge is a simple network where people lend, borrow and invest
-            with written agreements and shared profit. No hype. No noise. Just structure.
+          <p class="hero-subtitle">
+            AmicBridge is a private network where people help each other with
+            capital – always with written agreements, clear expectations and
+            realistic profit sharing.
           </p>
 
           <div class="hero-cta">
-            <a href="#contact">
-              <button type="button" class="btn-primary">Contact CEO</button>
-            </a>
-            <a href="#how">
-              <button type="button" class="btn-secondary">How it works</button>
-            </a>
+            <a href="#contact"><button class="btn-primary">Contact CEO</button></a>
+            <a href="#how"><button class="btn-secondary">Learn how it works</button></a>
           </div>
         </div>
 
-        <aside class="hero-card" aria-label="Key facts">
-          <h3>What AmicBridge stands for</h3>
-          <div class="pill-row">
-            <span class="pill">Written loan agreements</span>
-            <span class="pill">Clear profit sharing</span>
-            <span class="pill">No hidden fees</span>
-            <span class="pill">Human-to-human network</span>
+        <aside class="hero-card">
+          <h3>AmicBridge in one look</h3>
+          <div class="hero-pill-row">
+            <span class="hero-pill">Written agreements</span>
+            <span class="hero-pill">Clear expectations</span>
+            <span class="hero-pill">No hidden fees</span>
+            <span class="hero-pill">Human-to-human network</span>
           </div>
         </aside>
       </section>
 
-      <!-- HOW IT WORKS -->
       <section id="how">
         <h2 class="section-title">How it works</h2>
+        <p class="section-sub">Clarity, structure and simplicity.</p>
 
         <div class="grid-3">
           <div class="card">
             <h3>1. Lend</h3>
-            <p>Provide capital to someone in the AmicBridge network on agreed terms.</p>
+            <p>Private lenders provide capital under written terms.</p>
           </div>
-
           <div class="card">
             <h3>2. Borrow</h3>
-            <p>Get funding for projects or needs with a clear repayment plan.</p>
+            <p>Borrowers receive funding with a clear agreement.</p>
           </div>
-
           <div class="card">
             <h3>3. Share profit</h3>
-            <p>When things go well, profit is shared exactly as written in the agreement.</p>
+            <p>Success leads to structured profit sharing.</p>
           </div>
         </div>
       </section>
 
-      <!-- TRUST & AGREEMENTS -->
+      <section id="who">
+        <h2 class="section-title">Who AmicBridge is for</h2>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>Private lenders</h3>
+            <p>Individuals who want professional structure.</p>
+          </div>
+          <div class="card">
+            <h3>Projects & builders</h3>
+            <p>People with concrete plans that need funding.</p>
+          </div>
+          <div class="card">
+            <h3>Long-term investors</h3>
+            <p>Those who prefer agreements over hype.</p>
+          </div>
+        </div>
+      </section>
+
       <section id="trust">
         <h2 class="section-title">Trust & agreements</h2>
 
         <div class="two-col">
           <div>
-            <p style="font-size:14px; color:var(--text-muted);">
-              Every deal made through the AmicBridge network is backed by a simple,
-              written agreement. First you agree on the terms. Then money moves.
+            <p class="section-sub">
+              The principle is simple: <strong>Trust before money. Agreement before action.</strong>
             </p>
 
-            <ul class="list">
-              <li>Loan agreements for lending deals</li>
-              <li>Investment / profit-sharing agreements</li>
-              <li>Clear dates, amounts and responsibilities</li>
-            </ul>
+            <div class="card">
+              <h3>Written agreements on every deal</h3>
+              <ul class="list">
+                <li>Loan agreements</li>
+                <li>Investment & profit-sharing agreements</li>
+                <li>Clear amounts, timelines and responsibilities</li>
+              </ul>
 
-            <div class="badge-row">
-              <span class="badge">Trust before money</span>
-              <span class="badge">Agreement before action</span>
+              <div class="badge-row">
+                <span class="badge">Plain language terms</span>
+                <span class="badge">Professional structure</span>
+              </div>
             </div>
-          </div>
-
-          <div class="notice">
-            <strong>Risk reminder</strong><br />
-            This is not a traditional bank. Any lending or investing can lead to
-            loss of money. Only use money you can afford to risk.
           </div>
         </div>
       </section>
 
-      <!-- CURRENCY -->
       <section id="currency">
         <h2 class="section-title">Currency choice</h2>
 
         <div class="card">
-          <p style="margin:0 0 6px; font-size:14px; color:var(--text-muted);">
-            Deals inside the AmicBridge network can be made in different currencies,
-            depending on what both sides agree on.
-          </p>
+          <p class="section-sub">Currency is chosen by both parties and written into the agreement.</p>
 
           <ul class="list">
             <li>Crypto</li>
-            <li>stabel coin</li> 
-            <li>NOK – Norwegian Krone</li>
-            <li>SEK – Swedish Krona</li>
-            <li>EUR – Euro</li>
-            <li>USD – United States Dollar</li>
+            <li>Stablecoins</li>
+            <li>NOK · SEK · EUR · USD</li>
           </ul>
         </div>
       </section>
 
-      <!-- CONTACT -->
+      <section id="stablecoin">
+        <h2 class="section-title">Stablecoin option</h2>
+
+        <div class="card">
+          <p class="section-sub">
+            Stablecoins provide fast and predictable transfers when both sides agree.
+          </p>
+
+          <ul class="list">
+            <li>Fast settlement</li>
+            <li>Predictable transfer value</li>
+            <li>Useful when bank transfers are slow</li>
+            <li>Always linked to a written agreement</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="start">
+        <h2 class="section-title">How to get started</h2>
+
+        <div class="card">
+          <div class="steps">
+            <div class="step">
+              <strong>1. Send an email</strong>
+              Say if you want to lend, borrow or invest.
+            </div>
+            <div class="step">
+              <strong>2. Discuss</strong>
+              Terms, expectations and currency are discussed.
+            </div>
+            <div class="step">
+              <strong>3. Agreement</strong>
+              A written agreement is created and signed.
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="contact">
         <h2 class="section-title">Contact</h2>
 
         <div class="two-col">
           <div class="contact-card">
-            <h3>Talk directly with the CEO and our team</h3>
-            <p style="margin:0 0 10px;">
-              AmicBridge is led by <strong>robert</strong>.
-            </p>
+            <h3>Direct contact</h3>
+            <p>CEO: <strong>Habbitx</strong></p>
 
-            <p style="margin:0 0 6px; font-size:14px;">
+            <p style="font-size:14px;">
               Email:
-              <a href="mailto:robertamicolsen@gmail.com">
-                robertamicolsen@gmail.com
-              </a>
+              <a href="mailto:robertamicolsen@gmail.com">contactamicbridge@gmail.com</a>
             </p>
 
-            <p style="margin:4px 0 0; font-size:13px; color:var(--text-muted);">
-              Write if you want to lend, borrow or invest. Keep it short and clear.
+            <p class="section-sub">
+              Write briefly who you are and whether you want to lend, borrow or invest.
             </p>
           </div>
 
           <div class="card">
-            <h3>What to include</h3>
+            <h3>Helpful details</h3>
             <ul class="list">
-              <li>Are you lending, borrowing or investing?</li>
+              <li>Your role</li>
               <li>Approximate amount</li>
               <li>Preferred currency</li>
-              <li>Time frame (months / years)</li>
+              <li>Short description</li>
             </ul>
           </div>
         </div>
@@ -427,7 +434,8 @@ const year = new Date().getFullYear();
     </div>
 
     <footer>
-      © {year} AmicBridge · Trust Before Money · This page is informational only and not financial advice.
+      <span>© {year} AmicBridge · Trust Before Money</span>
+      <span>Private financial network.</span>
     </footer>
   </body>
 </html>
