@@ -1,299 +1,212 @@
-<!doctype html>
+---
+const matches = [
+  { league: "Champions League", teams: "Barcelona vs Real Madrid", odds: [2, 3, 2] },
+  { league: "Premier League", teams: "paris vs Arsenal", odds: [1, 3, 2] },
+  { league: "Eredivisie", teams: "Ajax vs PSV", odds: [1, 2, 2] }
+];
+---
+
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AmicBridge</title>
-  </head>
-
-  <body>
-    <!-- HEADER -->
-    <header class="header">
-      <div class="container nav">
-        <div>
-          <h2 class="logo">
-            <span>AMIC</span><span class="blue">BRIDGE</span>
-          </h2>
-          <p class="tag"></p>
-        </div>
-
-        <nav class="menu">
-          <a href="#">How it works</a>
-          <a href="#">Who it is for</a>
-          <a href="#">Trust & agreements</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </div>
-    </header>
-
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container hero-grid">
-
-        <!-- LEFT -->
-        <div class="left">
-          <div class="badge">✔ TRUST BEFORE MONEY</div>
-
-          <h1>
-            Invest your money. Let it work smarter for you.
-          </h1>
-
-          <p>
-            Put your money to work with us. We provide earnings. Start with a small amount or a big amount.
-          </p>
-
-          <div class="buttons">
-            <a href="mailto:sadikuernest00@gmail.com" class="btn primary">Email CEO</a>
-            <a href="#" class="btn secondary">Learn how it works</a>
-          </div>
-        </div>
-
-        <!-- RIGHT -->
-        <div class="right">
-          <div class="money-card">
-            <h2>
-          
-              We provide structure, insights, and opportunities.
-              
-            </h2>
-
-            <p>
-              
-            </p>
-
-            <a
-              href="https://wa.me/4792928373"
-              target="_blank"
-              class="whatsapp-btn"
-            >
-              💬 Contact on WhatsApp to get started
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- WHO -->
-    <section class="section">
-      <div class="container">
-        <h2>Who AmicBridge is for</h2>
-
-        <div class="grid">
-          <div class="card">
-            <h3>Private lenders</h3>
-            <p>Individuals who want professional structure.</p>
-          </div>
-
-          <div class="card">
-            <h3>Projects & builders</h3>
-            <p>People with concrete plans that need funding.</p>
-          </div>
-
-          <div class="card">
-            <h3>Long-term investors</h3>
-            <p>Those who prefer agreements over hype.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="section">
-      <div class="container">
-        <h2>Contact</h2>
-
-        <p>If you are interested in working with us, reach out directly:</p>
-
-        <!-- NEW TRUST MESSAGE -->
-        <div class="card">
-          <p>
-            <strong>We are available anytime, anywhere.</strong><br><br>
-            We can arrange a phone call or an in-person meeting based on your preference.
-            Let us know what works best for you, and we will make it happen.
-          </p>
-        </div>
-
-        <div class="card">
-          <p><strong>:</strong> 
-            <a href="mailto:sa
-              
-            </a>
-          </p>
-
-          <p><strong>WhatsApp:</strong> 
-            <a href="https://wa.me/4792928373" target="_blank">
-              Chat on WhatsApp
-            </a>
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="container">
-        <p>
-          AmicBridge provides structure, agreements, and opportunities.
-        </p>
-      </div>
-    </footer>
-
-  </body>
-</html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Amicbridge Web3</title>
 
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f6fb;
-    color: #111;
-  }
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0b1220;
+  color: white;
+}
 
-  .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-  }
+nav {
+  display:flex;
+  justify-content:space-between;
+  padding:15px 25px;
+  background:#020617;
+  border-bottom:1px solid #1e293b;
+}
 
-  .header {
-    background: white;
-    border-bottom: 1px solid #ddd;
-    padding: 15px 0;
-  }
+.logo {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:bold;
+}
 
-  .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.wallet {
+  background:#f97316;
+  padding:8px 12px;
+  border-radius:6px;
+  cursor:pointer;
+}
 
-  .logo {
-    margin: 0;
-  }
+.container {
+  display:grid;
+  grid-template-columns:3fr 1fr;
+}
 
-  .logo .blue {
-    color: #2d4bb3;
-  }
+.match {
+  background:#111827;
+  margin:15px;
+  padding:15px;
+  border-radius:10px;
+}
 
-  .tag {
-    font-size: 12px;
-    color: gray;
-  }
+.odds button {
+  margin-right:8px;
+  padding:10px;
+  border:none;
+  border-radius:6px;
+  background:#1e293b;
+  color:white;
+  cursor:pointer;
+}
 
-  .menu a {
-    margin-left: 15px;
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-  }
+.odds button:hover {
+  background:#f97316;
+}
 
-  .hero {
-    padding: 60px 0;
-  }
+.betslip {
+  background:#020617;
+  padding:20px;
+  border-left:1px solid #1e293b;
+}
 
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-  }
+input {
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  background:#0f172a;
+  border:1px solid #334155;
+  color:white;
+}
 
-  .badge {
-    background: #dbeafe;
-    color: #1e40af;
-    padding: 6px 12px;
-    border-radius: 20px;
-    display: inline-block;
-    margin-bottom: 15px;
-  }
-
-  h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-
-  .buttons {
-    margin-top: 20px;
-  }
-
-  .btn {
-    padding: 12px 18px;
-    border-radius: 8px;
-    text-decoration: none;
-    margin-right: 10px;
-  }
-
-  .primary {
-    background: #2d4bb3;
-    color: white;
-  }
-
-  .secondary {
-    background: #eee;
-  }
-
-  .money-card {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    border: 1px solid #ddd;
-  }
-
-  .money-card h2 {
-    margin-bottom: 15px;
-  }
-
-  .money-card p {
-    color: #555;
-    line-height: 1.6;
-  }
-
-  .whatsapp-btn {
-    display: inline-block;
-    margin-top: 15px;
-    background: #25D366;
-    color: white;
-    padding: 12px 18px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  .section {
-    padding: 50px 0;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-
-  .card {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    margin-top: 15px;
-  }
-
-  .footer {
-    background: white;
-    padding: 20px;
-    border-top: 1px solid #ddd;
-    text-align: center;
-    font-size: 14px;
-    color: gray;
-  }
-
-  @media (max-width: 800px) {
-    .hero-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .grid {
-      grid-template-columns: 1fr;
-    }
-  }
+.place {
+  margin-top:10px;
+  width:100%;
+  padding:10px;
+  background:#22c55e;
+  border:none;
+  cursor:pointer;
+}
 </style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">
+    <span>🟠 Amicbridge</span>
+  </div>
+
+  <div class="wallet" onclick="connectWallet()">
+    Connect Wallet
+  </div>
+</nav>
+
+<div class="container">
+
+  <div>
+    {matches.map(m => (
+      <div class="match">
+        <div style="color:#94a3b8;font-size:12px">{m.league}</div>
+        <h3>{m.teams}</h3>
+
+        <div class="odds">
+          <button onclick={`selectBet("${m.teams}", ${m.odds[0]})`}>1 {m.odds[0]}</button>
+          <button onclick={`selectBet("${m.teams}", ${m.odds[1]})`}>X {m.odds[1]}</button>
+          <button onclick={`selectBet("${m.teams}", ${m.odds[2]})`}>2 {m.odds[2]}</button>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="betslip">
+    <h3>Web3 Bet Slip</h3>
+
+    <p id="walletStatus">Wallet: Not connected</p>
+    <p id="selection">No bet selected</p>
+
+    <input id="stake" type="number" placeholder="Stake (ETH)" />
+
+    <button class="place" onclick="placeBet()">
+      Place On-Chain Bet
+    </button>
+  </div>
+
+</div>
+
+<script>
+import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@6.13.4/+esm";
+
+let selectedBet = null;
+let signer;
+let contract;
+
+// 🔴 PUT YOUR CONTRACT ADDRESS HERE
+const contractAddress = "PASTE_YOUR_CONTRACT_ADDRESS";
+
+// ABI from your Solidity contract
+const abi = [
+  "function placeBet(uint256 odds) payable"
+];
+
+async function connectWallet() {
+  if (!window.ethereum) {
+    alert("Install MetaMask");
+    return;
+  }
+
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  await provider.send("eth_requestAccounts", []);
+  signer = await provider.getSigner();
+
+  const address = await signer.getAddress();
+  document.getElementById("walletStatus").innerText =
+    "Wallet: " + address.slice(0,6) + "...";
+
+  contract = new ethers.Contract(contractAddress, abi, signer);
+}
+
+function selectBet(teams, odds) {
+  selectedBet = { teams, odds };
+  document.getElementById("selection").innerText =
+    teams + " @ " + odds;
+}
+
+async function placeBet() {
+  if (!contract) {
+    alert("Connect wallet first");
+    return;
+  }
+
+  if (!selectedBet) {
+    alert("Select a bet");
+    return;
+  }
+
+  const stake = document.getElementById("stake").value;
+
+  if (!stake || stake <= 0) {
+    alert("Invalid stake");
+    return;
+  }
+
+  try {
+    const tx = await contract.placeBet(selectedBet.odds, {
+      value: ethers.parseEther(stake)
+    });
+
+    await tx.wait();
+    alert("Bet placed on blockchain!");
+  } catch (err) {
+    console.error(err);
+    alert("Transaction failed");
+  }
+}
+</script>
+
+</body>
+</html>
