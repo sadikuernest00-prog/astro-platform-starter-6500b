@@ -1,212 +1,227 @@
+
 ---
-const matches = [
-  { league: "Champions League", teams: "Barcelona vs Real Madrid", odds: [2, 3, 2] },
-  { league: "Premier League", teams: "paris vs Arsenal", odds: [1, 3, 2] },
-  { league: "Eredivisie", teams: "Ajax vs PSV", odds: [1, 2, 2] }
-];
+import { supabase } from '../lib/supabase'
+
+let message = ''
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData()
+
+  const action = formData.get('action')
+  const email = formData.get('email')
+  const password = formData.get('password')
+
+  if (action === 'register') {
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+    })
+
+    if (error) {
+      message = error.message
+    } else {
+      message = 'Account created successfully'
+    }
+  }
+
+  if (action === 'login') {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (error) {
+      message = error.message
+    } else {
+      message = 'Login successful'
+    }
+  }
+}
 ---
 
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Amicbridge Web3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Amicbridge</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #0b1220;
-  color: white;
+body{
+  margin:0;
+  background:#020b2d;
+  color:white;
+  font-family:Arial;
 }
 
-nav {
-  display:flex;
-  justify-content:space-between;
-  padding:15px 25px;
-  background:#020617;
-  border-bottom:1px solid #1e293b;
+.container{
+  max-width:600px;
+  margin:auto;
+  padding:40px;
 }
 
-.logo {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-weight:bold;
+h1{
+  font-size:70px;
+  margin-bottom:40px;
 }
 
-.wallet {
-  background:#f97316;
-  padding:8px 12px;
-  border-radius:6px;
-  cursor:pointer;
+.card{
+  background:#08153d;
+  padding:30px;
+  border-radius:20px;
 }
 
-.container {
-  display:grid;
-  grid-template-columns:3fr 1fr;
-}
-
-.match {
-  background:#111827;
-  margin:15px;
-  padding:15px;
+input{
+  width:100%;
+  padding:20px;
+  margin-bottom:20px;
+  font-size:22px;
+  border:none;
   border-radius:10px;
 }
 
-.odds button {
-  margin-right:8px;
-  padding:10px;
-  border:none;
-  border-radius:6px;
-  background:#1e293b;
-  color:white;
-  cursor:pointer;
+.buttons{
+  display:flex;
+  gap:20px;
 }
 
-.odds button:hover {
-  background:#f97316;
-}
-
-.betslip {
-  background:#020617;
+button{
+  flex:1;
   padding:20px;
-  border-left:1px solid #1e293b;
+  font-size:24px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
 }
 
-input {
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-  background:#0f172a;
-  border:1px solid #334155;
+.register{
+  background:orange;
   color:white;
 }
 
-.place {
-  margin-top:10px;
-  width:100%;
-  padding:10px;
-  background:#22c55e;
-  border:none;
-  cursor:pointer;
+.login{
+  background:#00c853;
+  color:white;
+}
+
+.message{
+  margin-top:20px;
+  font-size:20px;
+}
+
+.matches{
+  margin-top:50px;
+}
+
+.match{
+  background:#08153d;
+  padding:20px;
+  border-radius:20px;
+  margin-bottom:20px;
+}
+
+.odds{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+
+.odds button{
+  background:#16244f;
+  color:white;
 }
 </style>
 </head>
 
 <body>
 
-<nav>
-  <div class="logo">
-    <span>🟠 Amicbridge</span>
-  </div>
-
-  <div class="wallet" onclick="connectWallet()">
-    Connect Wallet
-  </div>
-</nav>
-
 <div class="container">
 
-  <div>
-    {matches.map(m => (
-      <div class="match">
-        <div style="color:#94a3b8;font-size:12px">{m.league}</div>
-        <h3>{m.teams}</h3>
+<h1>Amicbridge</h1>
 
-        <div class="odds">
-          <button onclick={`selectBet("${m.teams}", ${m.odds[0]})`}>1 {m.odds[0]}</button>
-          <button onclick={`selectBet("${m.teams}", ${m.odds[1]})`}>X {m.odds[1]}</button>
-          <button onclick={`selectBet("${m.teams}", ${m.odds[2]})`}>2 {m.odds[2]}</button>
-        </div>
-      </div>
-    ))}
-  </div>
+<div class="card">
 
-  <div class="betslip">
-    <h3>Web3 Bet Slip</h3>
+<form method="POST">
 
-    <p id="walletStatus">Wallet: Not connected</p>
-    <p id="selection">No bet selected</p>
+<input
+type="email"
+name="email"
+placeholder="Email"
+required
+/>
 
-    <input id="stake" type="number" placeholder="Stake (ETH)" />
+<input
+type="password"
+name="password"
+placeholder="Password"
+required
+/>
 
-    <button class="place" onclick="placeBet()">
-      Place On-Chain Bet
-    </button>
-  </div>
+<div class="buttons">
+
+<button
+class="register"
+type="submit"
+name="action"
+value="register"
+>
+Register
+</button>
+
+<button
+class="login"
+type="submit"
+name="action"
+value="login"
+>
+Login
+</button>
 
 </div>
 
-<script>
-import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@6.13.4/+esm";
+</form>
 
-let selectedBet = null;
-let signer;
-let contract;
-
-// 🔴 PUT YOUR CONTRACT ADDRESS HERE
-const contractAddress = "PASTE_YOUR_CONTRACT_ADDRESS";
-
-// ABI from your Solidity contract
-const abi = [
-  "function placeBet(uint256 odds) payable"
-];
-
-async function connectWallet() {
-  if (!window.ethereum) {
-    alert("Install MetaMask");
-    return;
-  }
-
-  const provider = new ethers.BrowserProvider(window.ethereum);
-  await provider.send("eth_requestAccounts", []);
-  signer = await provider.getSigner();
-
-  const address = await signer.getAddress();
-  document.getElementById("walletStatus").innerText =
-    "Wallet: " + address.slice(0,6) + "...";
-
-  contract = new ethers.Contract(contractAddress, abi, signer);
+{
+  message && <p class="message">{message}</p>
 }
 
-function selectBet(teams, odds) {
-  selectedBet = { teams, odds };
-  document.getElementById("selection").innerText =
-    teams + " @ " + odds;
-}
+</div>
 
-async function placeBet() {
-  if (!contract) {
-    alert("Connect wallet first");
-    return;
-  }
+<div class="matches">
 
-  if (!selectedBet) {
-    alert("Select a bet");
-    return;
-  }
+<div class="match">
+<h2>Barcelona vs Real Madrid</h2>
 
-  const stake = document.getElementById("stake").value;
+<div class="odds">
+<button>1 2.1</button>
+<button>X 3.2</button>
+<button>2 2.8</button>
+</div>
+</div>
 
-  if (!stake || stake <= 0) {
-    alert("Invalid stake");
-    return;
-  }
+<div class="match">
+<h2>Arsenal vs PSG</h2>
 
-  try {
-    const tx = await contract.placeBet(selectedBet.odds, {
-      value: ethers.parseEther(stake)
-    });
+<div class="odds">
+<button>1 1.9</button>
+<button>X 3.5</button>
+<button>2 4.0</button>
+</div>
+</div>
 
-    await tx.wait();
-    alert("Bet placed on blockchain!");
-  } catch (err) {
-    console.error(err);
-    alert("Transaction failed");
-  }
-}
-</script>
+<div class="match">
+<h2>Ajax vs PSV</h2>
+
+<div class="odds">
+<button>1 2.4</button>
+<button>X 3.0</button>
+<button>2 2.2</button>
+</div>
+</div>
+
+</div>
+
+</div>
 
 </body>
 </html>
