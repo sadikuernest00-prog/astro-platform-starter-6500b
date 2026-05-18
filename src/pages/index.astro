@@ -1,378 +1,421 @@
 ---
+const API_KEY = "PUT_YOUR_API_KEY_HERE";
+
+let matches = [];
+
+try {
+
+  const response = await fetch(
+    "https://v3.football.api-sports.io/fixtures?live=all",
+    {
+      method: "GET",
+      headers: {
+        "x-apisports-key": API_KEY
+      }
+    }
+  );
+
+  const data = await response.json();
+
+  matches = data.response || [];
+
+} catch (err) {
+  console.log(err);
+}
 ---
 
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>Amicbridge</title>
+<title>Amicbridge</title>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, sans-serif;
-    }
+<style>
 
-    body{
-      background:#020b3d;
-      color:white;
-    }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
 
-    header{
-      width:100%;
-      padding:25px 40px;
-      border-bottom:1px solid rgba(255,255,255,0.1);
+body{
+  background:#020b3d;
+  color:white;
+}
 
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:25px 40px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
 
-    .logo{
-      font-size:52px;
-      font-weight:bold;
-      color:#ffb000;
-    }
+.logo{
+  font-size:52px;
+  font-weight:bold;
+  color:#ffb000;
+}
 
-    .wallet-btn{
-      background:#ffb000;
-      border:none;
-      padding:18px 40px;
-      border-radius:16px;
-      color:white;
-      font-size:24px;
-      font-weight:bold;
-      cursor:pointer;
-    }
+.wallet-btn{
+  background:#ffb000;
+  border:none;
+  padding:18px 40px;
+  border-radius:15px;
+  font-size:24px;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    .hero{
-      width:100%;
-      min-height:90vh;
+.hero{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:60px;
+  padding:60px;
+}
 
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+.left{
+  flex:1;
+}
 
-      padding:60px;
-      gap:60px;
-    }
+.left h1{
+  font-size:110px;
+  line-height:0.9;
+  margin-bottom:30px;
+}
 
-    .left{
-      flex:1;
-    }
+.left p{
+  font-size:30px;
+  line-height:1.5;
+  color:#c7d0ff;
+  max-width:700px;
+}
 
-    .left h1{
-      font-size:110px;
-      line-height:0.9;
-      margin-bottom:30px;
-    }
+.right{
+  width:520px;
+  background:#0c1657;
+  padding:40px;
+  border-radius:30px;
+}
 
-    .left p{
-      font-size:30px;
-      color:#c8d1ff;
-      max-width:700px;
-      line-height:1.5;
-    }
+.right h2{
+  font-size:56px;
+  margin-bottom:30px;
+}
 
-    .right{
-      width:520px;
-      background:#0c1657;
-      border-radius:30px;
-      padding:40px;
-    }
+.input{
+  width:100%;
+  padding:24px;
+  margin-bottom:25px;
+  border:none;
+  border-radius:16px;
+  background:#18256f;
+  color:white;
+  font-size:24px;
+}
 
-    .right h2{
-      font-size:56px;
-      margin-bottom:35px;
-    }
+.buttons{
+  display:flex;
+  gap:20px;
+}
 
-    .input{
-      width:100%;
-      padding:24px;
-      border:none;
-      border-radius:18px;
-      margin-bottom:25px;
-      background:#18256f;
-      color:white;
-      font-size:24px;
-    }
+.register{
+  flex:1;
+  background:#ffb000;
+  border:none;
+  padding:22px;
+  border-radius:16px;
+  font-size:26px;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    .buttons{
-      display:flex;
-      gap:20px;
-    }
+.login{
+  flex:1;
+  background:#00d84f;
+  border:none;
+  padding:22px;
+  border-radius:16px;
+  font-size:26px;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    .register{
-      flex:1;
-      background:#ffb000;
-      border:none;
-      border-radius:18px;
-      padding:22px;
-      font-size:26px;
-      color:white;
-      font-weight:bold;
-      cursor:pointer;
-    }
+.message{
+  margin-top:20px;
+  color:#00ff95;
+  font-size:22px;
+}
 
-    .login{
-      flex:1;
-      background:#00d84f;
-      border:none;
-      border-radius:18px;
-      padding:22px;
-      font-size:26px;
-      color:white;
-      font-weight:bold;
-      cursor:pointer;
-    }
+.matches{
+  padding:60px;
+}
 
-    .matches{
-      padding:60px;
-    }
+.matches h2{
+  font-size:60px;
+  margin-bottom:40px;
+}
 
-    .matches h2{
-      font-size:60px;
-      margin-bottom:40px;
-    }
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:30px;
+}
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-      gap:30px;
-    }
+.card{
+  background:#0c1657;
+  padding:30px;
+  border-radius:25px;
+}
 
-    .card{
-      background:#0c1657;
-      padding:30px;
-      border-radius:25px;
-    }
+.league{
+  color:#a7b5ff;
+  margin-bottom:15px;
+  font-size:18px;
+}
 
-    .league{
-      color:#a6b3ff;
-      margin-bottom:15px;
-      font-size:18px;
-    }
+.teams{
+  font-size:34px;
+  font-weight:bold;
+  margin-bottom:20px;
+  line-height:1.3;
+}
 
-    .teams{
-      font-size:34px;
-      font-weight:bold;
-      margin-bottom:25px;
-      line-height:1.3;
-    }
+.live{
+  color:#00ff88;
+  font-size:20px;
+  margin-bottom:20px;
+}
 
-    .odds{
-      display:flex;
-      gap:15px;
-    }
+.odds{
+  display:flex;
+  gap:15px;
+}
 
-    .odd{
-      flex:1;
-      background:#18256f;
-      padding:18px;
-      text-align:center;
-      border-radius:15px;
-      font-size:22px;
-      font-weight:bold;
-      cursor:pointer;
-    }
+.odd{
+  flex:1;
+  background:#18256f;
+  padding:18px;
+  border-radius:15px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+}
 
-    .message{
-      margin-top:20px;
-      font-size:22px;
-      color:#00ff88;
-    }
-
-  </style>
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">⚽ Amicbridge</div>
 
-  <button class="wallet-btn">
-    Connect Wallet
-  </button>
+<div class="logo">
+⚽ Amicbridge
+</div>
+
+<button class="wallet-btn">
+Connect Wallet
+</button>
+
 </header>
 
 <section class="hero">
 
-  <div class="left">
-    <h1>
-      Crypto<br/>
-      Sports<br/>
-      Betting
-    </h1>
+<div class="left">
 
-    <p>
-      Bet on live football matches using crypto technology,
-      secure authentication and real-time football data.
-    </p>
-  </div>
+<h1>
+Crypto<br/>
+Sports<br/>
+Betting
+</h1>
 
-  <div class="right">
+<p>
+Bet on live football matches using modern crypto technology,
+secure authentication and real-time football data.
+</p>
 
-    <h2>Login or Register</h2>
+</div>
 
-    <input
-      id="email"
-      class="input"
-      type="email"
-      placeholder="Email"
-    />
+<div class="right">
 
-    <input
-      id="password"
-      class="input"
-      type="password"
-      placeholder="Password"
-    />
+<h2>Login or Register</h2>
 
-    <div class="buttons">
+<input
+id="email"
+class="input"
+type="email"
+placeholder="Email"
+/>
 
-      <button
-        class="register"
-        onclick="registerUser()"
-      >
-        Register
-      </button>
+<input
+id="password"
+class="input"
+type="password"
+placeholder="Password"
+/>
 
-      <button
-        class="login"
-        onclick="loginUser()"
-      >
-        Login
-      </button>
+<div class="buttons">
 
-    </div>
+<button
+class="register"
+onclick="registerUser()"
+>
+Register
+</button>
 
-    <div id="message" class="message"></div>
+<button
+class="login"
+onclick="loginUser()"
+>
+Login
+</button>
 
-  </div>
+</div>
+
+<div id="message" class="message"></div>
+
+</div>
 
 </section>
 
 <section class="matches">
 
-  <h2>🔥 Live Football Matches</h2>
+<h2>🔥 Live Football Matches</h2>
 
-  <div class="grid">
+<div class="grid">
 
-    <div class="card">
-      <div class="league">Champions League</div>
+{
+matches.length > 0 ? (
 
-      <div class="teams">
-        Barcelona vs Real Madrid
-      </div>
+matches.map((match) => (
 
-      <div class="odds">
-        <div class="odd">1.90</div>
-        <div class="odd">3.20</div>
-        <div class="odd">2.50</div>
-      </div>
-    </div>
+<div class="card">
 
-    <div class="card">
-      <div class="league">Premier League</div>
+<div class="league">
+{match.league.name}
+</div>
 
-      <div class="teams">
-        Arsenal vs Liverpool
-      </div>
+<div class="teams">
+{match.teams.home.name}
+<br/>
+vs
+<br/>
+{match.teams.away.name}
+</div>
 
-      <div class="odds">
-        <div class="odd">2.10</div>
-        <div class="odd">3.00</div>
-        <div class="odd">2.70</div>
-      </div>
-    </div>
+<div class="live">
+LIVE • {match.fixture.status.elapsed}'
+</div>
 
-    <div class="card">
-      <div class="league">Serie A</div>
+<div class="odds">
 
-      <div class="teams">
-        Inter vs Juventus
-      </div>
+<div class="odd">
+{match.goals.home ?? 0}
+</div>
 
-      <div class="odds">
-        <div class="odd">1.80</div>
-        <div class="odd">3.50</div>
-        <div class="odd">2.90</div>
-      </div>
-    </div>
+<div class="odd">
+DRAW
+</div>
 
-  </div>
+<div class="odd">
+{match.goals.away ?? 0}
+</div>
+
+</div>
+
+</div>
+
+))
+
+) : (
+
+<div class="card">
+<div class="teams">
+No live matches right now
+</div>
+</div>
+
+)
+}
+
+</div>
 
 </section>
 
 <script type="module">
 
-  import { createClient }
-  from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+import { createClient }
+from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-  const supabaseUrl =
-    'YOUR_SUPABASE_URL'
+const supabaseUrl =
+'YOUR_SUPABASE_URL'
 
-  const supabaseKey =
-    'YOUR_SUPABASE_ANON_KEY'
+const supabaseKey =
+'YOUR_SUPABASE_ANON_KEY'
 
-  const supabase =
-    createClient(supabaseUrl, supabaseKey)
+const supabase =
+createClient(supabaseUrl, supabaseKey)
 
-  async function registerUser() {
+async function registerUser(){
 
-    const email =
-      document.getElementById('email').value
+const email =
+document.getElementById('email').value
 
-    const password =
-      document.getElementById('password').value
+const password =
+document.getElementById('password').value
 
-    const message =
-      document.getElementById('message')
+const message =
+document.getElementById('message')
 
-    const { error } =
-      await supabase.auth.signUp({
-        email,
-        password
-      })
+const { error } =
+await supabase.auth.signUp({
+email,
+password
+})
 
-    if(error){
-      message.innerText = error.message
-    } else {
-      message.innerText =
-        'Registration successful!'
-    }
-  }
+if(error){
+message.innerText = error.message
+}else{
+message.innerText =
+'Registration successful!'
+}
 
-  async function loginUser() {
+}
 
-    const email =
-      document.getElementById('email').value
+async function loginUser(){
 
-    const password =
-      document.getElementById('password').value
+const email =
+document.getElementById('email').value
 
-    const message =
-      document.getElementById('message')
+const password =
+document.getElementById('password').value
 
-    const { error } =
-      await supabase.auth.signInWithPassword({
-        email,
-        password
-      })
+const message =
+document.getElementById('message')
 
-    if(error){
-      message.innerText = error.message
-    } else {
-      message.innerText =
-        'Login successful!'
-    }
-  }
+const { error } =
+await supabase.auth.signInWithPassword({
+email,
+password
+})
 
-  window.registerUser = registerUser
-  window.loginUser = loginUser
+if(error){
+message.innerText = error.message
+}else{
+message.innerText =
+'Login successful!'
+}
+
+}
+
+window.registerUser = registerUser
+window.loginUser = loginUser
 
 </script>
 
