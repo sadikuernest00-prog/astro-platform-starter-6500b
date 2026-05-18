@@ -1,343 +1,236 @@
 ---
+const response = await fetch('https://amicbridge.com/api/matches')
+const data = await response.json()
+
+const matches = data.response || []
 ---
 
-<html>
-
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Amicbridge</title>
+  <title>Amicbridge Live Betting</title>
 
-<style>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-body{
-  margin:0;
-  background:#020b2d;
-  font-family:Arial;
-  color:white;
-}
+    body {
+      background: #020b2d;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
 
-.nav{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:25px 50px;
-  border-bottom:1px solid rgba(255,255,255,0.1);
-}
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 50px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background: #05113b;
+    }
 
-.logo{
-  font-size:42px;
-  font-weight:bold;
-}
+    .logo {
+      font-size: 42px;
+      font-weight: bold;
+      color: orange;
+    }
 
-.logo span{
-  color:orange;
-}
+    .wallet-btn {
+      background: orange;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 14px;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-.wallet{
-  background:orange;
-  border:none;
-  color:white;
-  padding:15px 30px;
-  border-radius:12px;
-  font-size:18px;
-}
+    .hero {
+      padding: 80px 50px 40px;
+    }
 
-.container{
-  max-width:1300px;
-  margin:auto;
-  padding:80px 30px;
-  display:grid;
-  grid-template-columns:1fr 500px;
-  gap:50px;
-}
+    .hero h1 {
+      font-size: 80px;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
 
-.left h1{
-  font-size:90px;
-  line-height:1;
-}
+    .hero p {
+      color: #b6bdd3;
+      font-size: 24px;
+      max-width: 700px;
+      line-height: 1.5;
+    }
 
-.left p{
-  color:#b0bdd7;
-  font-size:28px;
-  line-height:1.5;
-}
+    .matches-container {
+      padding: 30px 50px 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 25px;
+    }
 
-.card{
-  background:#08153d;
-  padding:40px;
-  border-radius:30px;
-}
+    .match-card {
+      background: #081544;
+      border-radius: 22px;
+      padding: 25px;
+      transition: 0.2s;
+      box-shadow: 0 0 25px rgba(0,0,0,0.35);
+    }
 
-.card h2{
-  font-size:50px;
-  margin-bottom:30px;
-}
+    .match-card:hover {
+      transform: translateY(-3px);
+    }
 
-input{
-  width:100%;
-  padding:22px;
-  margin-bottom:20px;
-  border:none;
-  border-radius:15px;
-  background:#13214d;
-  color:white;
-  font-size:22px;
-  box-sizing:border-box;
-}
+    .league {
+      color: orange;
+      font-size: 14px;
+      margin-bottom: 14px;
+      font-weight: bold;
+    }
 
-.buttons{
-  display:flex;
-  gap:20px;
-}
+    .teams {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
 
-button{
-  flex:1;
-  padding:20px;
-  border:none;
-  border-radius:15px;
-  font-size:24px;
-  cursor:pointer;
-}
+    .live {
+      color: #00ff88;
+      font-weight: bold;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
 
-.register{
-  background:orange;
-  color:white;
-}
+    .score {
+      font-size: 34px;
+      margin-bottom: 25px;
+      font-weight: bold;
+    }
 
-.login{
-  background:#00c853;
-  color:white;
-}
+    .bet-buttons {
+      display: flex;
+      gap: 12px;
+    }
 
-.message{
-  margin-top:20px;
-  font-size:18px;
-}
+    .bet-buttons button {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background: orange;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
 
-.matches{
-  max-width:1300px;
-  margin:auto;
-  padding:0 30px 80px;
-}
+    .bet-buttons button:hover {
+      opacity: 0.85;
+    }
 
-.matches h2{
-  font-size:50px;
-  margin-bottom:30px;
-}
+    .empty {
+      padding: 60px;
+      font-size: 26px;
+      color: #b6bdd3;
+    }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:25px;
-}
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 52px;
+      }
 
-.match{
-  background:#08153d;
-  padding:30px;
-  border-radius:25px;
-}
+      .navbar {
+        flex-direction: column;
+        gap: 20px;
+      }
 
-.league{
-  color:orange;
-  margin-bottom:15px;
-}
-
-.teams{
-  font-size:34px;
-  font-weight:bold;
-  margin-bottom:20px;
-}
-
-.odds{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-
-.odds button{
-  background:#13214d;
-  color:white;
-  font-size:18px;
-}
-
-@media(max-width:900px){
-
-.container{
-  grid-template-columns:1fr;
-}
-
-.left h1{
-  font-size:60px;
-}
-
-}
-
-</style>
-
+      .matches-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="nav">
+  <div class="navbar">
+    <div class="logo">
+      ⚽ Amicbridge
+    </div>
 
-<div class="logo">
-<span>●</span> Amicbridge
-</div>
+    <button class="wallet-btn">
+      Connect Wallet
+    </button>
+  </div>
 
-<button class="wallet">
-Connect Wallet
-</button>
+  <div class="hero">
+    <h1>
+      Crypto Sports Betting
+    </h1>
 
-</div>
+    <p>
+      Live football matches powered by API-Football with real-time scores,
+      live fixtures and future crypto betting integration.
+    </p>
+  </div>
 
-<div class="container">
+  {
+    matches.length > 0 ? (
 
-<div class="left">
+      <div class="matches-container">
 
-<h1>
-Crypto Sports Betting
-</h1>
+        {matches.map((match) => (
 
-<p>
-Bet on live sports using crypto technology,
-fast payouts and secure authentication.
-</p>
+          <div class="match-card">
 
-</div>
+            <div class="league">
+              {match.league.name}
+            </div>
 
-<div class="card">
+            <div class="teams">
+              {match.teams.home.name}
+              <br />
+              vs
+              <br />
+              {match.teams.away.name}
+            </div>
 
-<h2>Login or Register</h2>
+            <div class="live">
+              LIVE • {match.fixture.status.elapsed}'
+            </div>
 
-<input
-type="email"
-id="email"
-placeholder="Email"
-/>
+            <div class="score">
+              {match.goals.home} - {match.goals.away}
+            </div>
 
-<input
-type="password"
-id="password"
-placeholder="Password"
-/>
+            <div class="bet-buttons">
+              <button>Home</button>
+              <button>Draw</button>
+              <button>Away</button>
+            </div>
 
-<div class="buttons">
+          </div>
 
-<button
-class="register"
-onclick="registerUser()"
->
-Register
-</button>
+        ))}
 
-<button
-class="login"
-onclick="loginUser()"
->
-Login
-</button>
+      </div>
 
-</div>
+    ) : (
 
-<div
-id="message"
-class="message"
-></div>
+      <div class="empty">
+        No live football matches right now ⚽
+      </div>
 
-</div>
-
-</div>
-
-<section class="matches">
-
-<h2>Live Matches</h2>
-
-<div class="grid">
-
-<div class="match">
-<div class="league">Champions League</div>
-<div class="teams">Barcelona vs Real Madrid</div>
-
-<div class="odds">
-<button>1 • 2.10</button>
-<button>X • 3.20</button>
-<button>2 • 2.90</button>
-</div>
-</div>
-
-<div class="match">
-<div class="league">Premier League</div>
-<div class="teams">Arsenal vs PSG</div>
-
-<div class="odds">
-<button>1 • 1.90</button>
-<button>X • 3.10</button>
-<button>2 • 4.20</button>
-</div>
-</div>
-
-<div class="match">
-<div class="league">Eredivisie</div>
-<div class="teams">Ajax vs PSV</div>
-
-<div class="odds">
-<button>1 • 2.40</button>
-<button>X • 3.00</button>
-<button>2 • 2.50</button>
-</div>
-</div>
-
-</div>
-
-</section>
-
-<script type="module">
-
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-
-const supabase = createClient(
-'https://fvrmcoukkczweuneyovf.supabase.co',
-'sb_publishable_bZL-upuSb3I35MVMTciL9w_HolwKJQt'
-)
-
-window.registerUser = async () => {
-
-const email = document.getElementById('email').value
-const password = document.getElementById('password').value
-
-const { error } = await supabase.auth.signUp({
-email,
-password
-})
-
-if(error){
-document.getElementById('message').innerHTML = error.message
-}else{
-document.getElementById('message').innerHTML = 'Registration successful!'
-}
-
-}
-
-window.loginUser = async () => {
-
-const email = document.getElementById('email').value
-const password = document.getElementById('password').value
-
-const { error } = await supabase.auth.signInWithPassword({
-email,
-password
-})
-
-if(error){
-document.getElementById('message').innerHTML = error.message
-}else{
-document.getElementById('message').innerHTML = 'Login successful!'
-}
-
-}
-
-</script>
+    )
+  }
 
 </body>
-
 </html>
