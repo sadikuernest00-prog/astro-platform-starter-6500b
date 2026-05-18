@@ -262,17 +262,11 @@ const matches = data.response || []
 
       <div class="auth-buttons">
 
-        <button
-          class="register-btn"
-          onclick="registerUser()"
-        >
+        <button class="register-btn">
           Register
         </button>
 
-        <button
-          class="login-btn"
-          onclick="loginUser()"
-        >
+        <button class="login-btn">
           Login
         </button>
 
@@ -347,10 +341,15 @@ const matches = data.response || []
   }
 
   <script type="module">
-
     import { supabase } from '../lib/supabase.js'
 
-    async function registerUser() {
+    const registerBtn =
+      document.querySelector('.register-btn')
+
+    const loginBtn =
+      document.querySelector('.login-btn')
+
+    registerBtn.addEventListener('click', async () => {
 
       const email =
         document.getElementById('email').value
@@ -370,9 +369,9 @@ const matches = data.response || []
         alert('Registration successful!')
       }
 
-    }
+    })
 
-    async function loginUser() {
+    loginBtn.addEventListener('click', async () => {
 
       const email =
         document.getElementById('email').value
@@ -392,11 +391,7 @@ const matches = data.response || []
         alert('Login successful!')
       }
 
-    }
-
-    window.registerUser = registerUser
-    window.loginUser = loginUser
-
+    })
   </script>
 
 </body>
