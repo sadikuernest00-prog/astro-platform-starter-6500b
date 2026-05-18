@@ -8,153 +8,207 @@ const matches = data.response || []
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>Amicbridge Live Betting</title>
+  <title>Amicbridge</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
     }
 
-    body {
-      background: #020b2d;
-      color: white;
-      font-family: Arial, sans-serif;
+    body{
+      background:#020b2d;
+      color:white;
+      font-family:Arial, sans-serif;
     }
 
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 25px 50px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      background: #05113b;
+    .navbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:25px 50px;
+      border-bottom:1px solid rgba(255,255,255,0.1);
+      background:#05113b;
     }
 
-    .logo {
-      font-size: 42px;
-      font-weight: bold;
-      color: orange;
+    .logo{
+      font-size:42px;
+      font-weight:bold;
+      color:orange;
     }
 
-    .wallet-btn {
-      background: orange;
-      border: none;
-      padding: 15px 30px;
-      border-radius: 14px;
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
+    .wallet-btn{
+      background:orange;
+      border:none;
+      padding:15px 28px;
+      border-radius:14px;
+      color:white;
+      font-size:18px;
+      font-weight:bold;
+      cursor:pointer;
     }
 
-    .hero {
-      padding: 80px 50px 40px;
+    .hero{
+      display:grid;
+      grid-template-columns:1fr 450px;
+      gap:40px;
+      padding:70px 50px;
+      align-items:center;
     }
 
-    .hero h1 {
-      font-size: 80px;
-      line-height: 1;
-      margin-bottom: 20px;
+    .hero h1{
+      font-size:90px;
+      line-height:1;
+      margin-bottom:20px;
     }
 
-    .hero p {
-      color: #b6bdd3;
-      font-size: 24px;
-      max-width: 700px;
-      line-height: 1.5;
+    .hero p{
+      font-size:24px;
+      color:#b6bdd3;
+      line-height:1.5;
+      max-width:700px;
     }
 
-    .matches-container {
-      padding: 30px 50px 80px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: 25px;
+    .auth-box{
+      background:#081544;
+      padding:35px;
+      border-radius:24px;
+      box-shadow:0 0 30px rgba(0,0,0,0.35);
     }
 
-    .match-card {
-      background: #081544;
-      border-radius: 22px;
-      padding: 25px;
-      transition: 0.2s;
-      box-shadow: 0 0 25px rgba(0,0,0,0.35);
+    .auth-box h2{
+      font-size:42px;
+      margin-bottom:30px;
     }
 
-    .match-card:hover {
-      transform: translateY(-3px);
+    .auth-box input{
+      width:100%;
+      padding:18px;
+      margin-bottom:20px;
+      border:none;
+      border-radius:14px;
+      background:#13235f;
+      color:white;
+      font-size:18px;
     }
 
-    .league {
-      color: orange;
-      font-size: 14px;
-      margin-bottom: 14px;
-      font-weight: bold;
+    .auth-buttons{
+      display:flex;
+      gap:15px;
     }
 
-    .teams {
-      font-size: 28px;
-      font-weight: bold;
-      margin-bottom: 16px;
-      line-height: 1.3;
+    .register-btn{
+      flex:1;
+      padding:18px;
+      border:none;
+      border-radius:14px;
+      background:orange;
+      color:white;
+      font-size:22px;
+      font-weight:bold;
+      cursor:pointer;
     }
 
-    .live {
-      color: #00ff88;
-      font-weight: bold;
-      margin-bottom: 12px;
-      font-size: 18px;
+    .login-btn{
+      flex:1;
+      padding:18px;
+      border:none;
+      border-radius:14px;
+      background:#00c853;
+      color:white;
+      font-size:22px;
+      font-weight:bold;
+      cursor:pointer;
     }
 
-    .score {
-      font-size: 34px;
-      margin-bottom: 25px;
-      font-weight: bold;
+    .matches-title{
+      padding:0 50px;
+      font-size:42px;
+      margin-bottom:25px;
     }
 
-    .bet-buttons {
-      display: flex;
-      gap: 12px;
+    .matches-container{
+      padding:0 50px 80px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
+      gap:25px;
     }
 
-    .bet-buttons button {
-      flex: 1;
-      padding: 15px;
-      border: none;
-      border-radius: 12px;
-      background: orange;
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
+    .match-card{
+      background:#081544;
+      border-radius:22px;
+      padding:25px;
+      box-shadow:0 0 25px rgba(0,0,0,0.35);
     }
 
-    .bet-buttons button:hover {
-      opacity: 0.85;
+    .league{
+      color:orange;
+      font-size:14px;
+      margin-bottom:14px;
+      font-weight:bold;
     }
 
-    .empty {
-      padding: 60px;
-      font-size: 26px;
-      color: #b6bdd3;
+    .teams{
+      font-size:28px;
+      font-weight:bold;
+      margin-bottom:16px;
+      line-height:1.3;
     }
 
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 52px;
+    .live{
+      color:#00ff88;
+      font-size:18px;
+      margin-bottom:12px;
+      font-weight:bold;
+    }
+
+    .score{
+      font-size:36px;
+      font-weight:bold;
+      margin-bottom:25px;
+    }
+
+    .bet-buttons{
+      display:flex;
+      gap:12px;
+    }
+
+    .bet-buttons button{
+      flex:1;
+      padding:15px;
+      border:none;
+      border-radius:12px;
+      background:orange;
+      color:white;
+      font-size:18px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .empty{
+      padding:50px;
+      color:#ccc;
+      font-size:24px;
+    }
+
+    @media(max-width:1000px){
+
+      .hero{
+        grid-template-columns:1fr;
       }
 
-      .navbar {
-        flex-direction: column;
-        gap: 20px;
+      .hero h1{
+        font-size:60px;
       }
 
-      .matches-container {
-        grid-template-columns: 1fr;
+      .navbar{
+        flex-direction:column;
+        gap:20px;
       }
+
     }
   </style>
 </head>
@@ -162,6 +216,7 @@ const matches = data.response || []
 <body>
 
   <div class="navbar">
+
     <div class="logo">
       ⚽ Amicbridge
     </div>
@@ -169,17 +224,66 @@ const matches = data.response || []
     <button class="wallet-btn">
       Connect Wallet
     </button>
+
   </div>
 
   <div class="hero">
-    <h1>
-      Crypto Sports Betting
-    </h1>
 
-    <p>
-      Live football matches powered by API-Football with real-time scores,
-      live fixtures and future crypto betting integration.
-    </p>
+    <div>
+
+      <h1>
+        Crypto Sports Betting
+      </h1>
+
+      <p>
+        Bet on live football matches using modern crypto technology,
+        secure authentication and real-time football data.
+      </p>
+
+    </div>
+
+    <div class="auth-box">
+
+      <h2>
+        Login or Register
+      </h2>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Email"
+      />
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Password"
+      />
+
+      <div class="auth-buttons">
+
+        <button
+          class="register-btn"
+          onclick="registerUser()"
+        >
+          Register
+        </button>
+
+        <button
+          class="login-btn"
+          onclick="loginUser()"
+        >
+          Login
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="matches-title">
+    🔥 Live Football Matches
   </div>
 
   {
@@ -212,9 +316,19 @@ const matches = data.response || []
             </div>
 
             <div class="bet-buttons">
-              <button>Home</button>
-              <button>Draw</button>
-              <button>Away</button>
+
+              <button>
+                Home
+              </button>
+
+              <button>
+                Draw
+              </button>
+
+              <button>
+                Away
+              </button>
+
             </div>
 
           </div>
@@ -231,6 +345,59 @@ const matches = data.response || []
 
     )
   }
+
+  <script type="module">
+
+    import { supabase } from '../lib/supabase.js'
+
+    async function registerUser() {
+
+      const email =
+        document.getElementById('email').value
+
+      const password =
+        document.getElementById('password').value
+
+      const { error } =
+        await supabase.auth.signUp({
+          email,
+          password
+        })
+
+      if(error){
+        alert(error.message)
+      } else {
+        alert('Registration successful!')
+      }
+
+    }
+
+    async function loginUser() {
+
+      const email =
+        document.getElementById('email').value
+
+      const password =
+        document.getElementById('password').value
+
+      const { error } =
+        await supabase.auth.signInWithPassword({
+          email,
+          password
+        })
+
+      if(error){
+        alert(error.message)
+      } else {
+        alert('Login successful!')
+      }
+
+    }
+
+    window.registerUser = registerUser
+    window.loginUser = loginUser
+
+  </script>
 
 </body>
 </html>
