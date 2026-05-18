@@ -1,34 +1,83 @@
 ---
+import { supabase } from '../lib/supabase'
+
+let error = ''
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData()
+
+  const email = formData.get('email')
+  const password = formData.get('password')
+
+  const { data, error: loginError } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  })
+
+  if (loginError) {
+    error = loginError.message
+  } else {
+    return Astro.redirect('/')
+  }
+}
 ---
 
 <html lang="en">
 <head>
-  <title>Login - Amicbridge</title>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+
+  <style>
+    body {
+      background: #020b2d;
+      color: white;
+      font-family: Arial;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 70px;
+    }
+
+    input {
+      width: 500px;
+      padding: 20px;
+      margin-bottom: 20px;
+      font-size: 24px;
+      display: block;
+    }
+
+    button {
+      background: orange;
+      color: white;
+      border: none;
+      padding: 20px 40px;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .error {
+      color: red;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 
-<body style="background:#081226;color:white;font-family:Arial;padding:40px;">
+<body>
 
 <h1>Login</h1>
 
-<form>
-  <input
-    type="email"
-    placeholder="Email"
-    style="display:block;margin-bottom:15px;padding:10px;width:300px;"
-  />
+<form method="POST">
+  <input type="email" name="email" placeholder="Email" required />
 
-  <input
-    type="password"
-    placeholder="Password"
-    style="display:block;margin-bottom:15px;padding:10px;width:300px;"
-  />
+  <input type="password" name="password" placeholder="Password" required />
 
-  <button
-    style="padding:12px 20px;background:orange;border:none;color:white;"
-  >
-    Login
-  </button>
+  <button type="submit">Login</button>
 </form>
+
+{
+  error && <p class="error">{error}</p>
+}
 
 </body>
 </html>
