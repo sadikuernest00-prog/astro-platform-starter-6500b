@@ -1,49 +1,4 @@
 ---
-import { createClient } from '@supabase/supabase-js'
-
-const supabase = createClient(
-  'https://fvrmcoukkczweuneyovf.supabase.co',
-  'sb_publishable_bZL-upuSb3I35MVMTciL9w_HolwKJQt'
-)
-
-let message = ''
-
-if (Astro.request.method === 'POST') {
-
-  const formData = await Astro.request.formData()
-
-  const action = formData.get('action')
-  const email = formData.get('email')
-  const password = formData.get('password')
-
-  if (action === 'register') {
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    })
-
-    if (error) {
-      message = error.message
-    } else {
-      message = 'Registration successful!'
-    }
-  }
-
-  if (action === 'login') {
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-
-    if (error) {
-      message = error.message
-    } else {
-      message = 'Login successful!'
-    }
-  }
-}
 ---
 
 <html>
@@ -155,10 +110,7 @@ button{
 }
 
 .message{
-  margin-top:25px;
-  background:#13214d;
-  padding:18px;
-  border-radius:12px;
+  margin-top:20px;
   font-size:18px;
 }
 
@@ -257,53 +209,40 @@ fast payouts and secure authentication.
 
 <h2>Login or Register</h2>
 
-<form method="POST" action="/">
-
 <input
 type="email"
-name="email"
+id="email"
 placeholder="Email"
-required
 />
 
 <input
 type="password"
-name="password"
+id="password"
 placeholder="Password"
-required
 />
 
 <div class="buttons">
 
 <button
-type="submit"
-name="action"
-value="register"
 class="register"
+onclick="registerUser()"
 >
 Register
 </button>
 
 <button
-type="submit"
-name="action"
-value="login"
 class="login"
+onclick="loginUser()"
 >
 Login
 </button>
 
 </div>
 
-</form>
-
-{
-  message && (
-    <div class="message">
-      {message}
-    </div>
-  )
-}
+<div
+id="message"
+class="message"
+></div>
 
 </div>
 
@@ -351,6 +290,53 @@ Login
 </div>
 
 </section>
+
+<script type="module">
+
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+const supabase = createClient(
+'https://fvrmcoukkczweuneyovf.supabase.co',
+'sb_publishable_bZL-upuSb3I35MVMTciL9w_HolwKJQt'
+)
+
+window.registerUser = async () => {
+
+const email = document.getElementById('email').value
+const password = document.getElementById('password').value
+
+const { error } = await supabase.auth.signUp({
+email,
+password
+})
+
+if(error){
+document.getElementById('message').innerHTML = error.message
+}else{
+document.getElementById('message').innerHTML = 'Registration successful!'
+}
+
+}
+
+window.loginUser = async () => {
+
+const email = document.getElementById('email').value
+const password = document.getElementById('password').value
+
+const { error } = await supabase.auth.signInWithPassword({
+email,
+password
+})
+
+if(error){
+document.getElementById('message').innerHTML = error.message
+}else{
+document.getElementById('message').innerHTML = 'Login successful!'
+}
+
+}
+
+</script>
 
 </body>
 
