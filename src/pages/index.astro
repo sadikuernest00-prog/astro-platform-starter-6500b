@@ -26,7 +26,7 @@ if (Astro.request.method === 'POST') {
     if (error) {
       message = error.message
     } else {
-      message = 'Account created successfully!'
+      message = 'Registration successful!'
     }
   }
 
@@ -46,13 +46,9 @@ if (Astro.request.method === 'POST') {
 }
 ---
 
-<html lang="en">
+<html>
 
 <head>
-
-<meta charset="UTF-8" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <title>Amicbridge</title>
 
@@ -61,20 +57,20 @@ if (Astro.request.method === 'POST') {
 body{
   margin:0;
   background:#020b2d;
-  color:white;
   font-family:Arial;
+  color:white;
 }
 
-.navbar{
+.nav{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:30px 60px;
+  padding:25px 50px;
   border-bottom:1px solid rgba(255,255,255,0.1);
 }
 
 .logo{
-  font-size:40px;
+  font-size:42px;
   font-weight:bold;
 }
 
@@ -84,68 +80,67 @@ body{
 
 .wallet{
   background:orange;
-  color:white;
   border:none;
-  padding:15px 25px;
+  color:white;
+  padding:15px 30px;
   border-radius:12px;
   font-size:18px;
-  cursor:pointer;
 }
 
-.hero{
+.container{
   max-width:1300px;
   margin:auto;
   padding:80px 30px;
   display:grid;
-  grid-template-columns:1fr 450px;
-  gap:40px;
+  grid-template-columns:1fr 500px;
+  gap:50px;
 }
 
 .left h1{
-  font-size:80px;
+  font-size:90px;
   line-height:1;
-  margin-bottom:30px;
 }
 
 .left p{
-  font-size:24px;
   color:#b0bdd7;
+  font-size:28px;
   line-height:1.5;
 }
 
 .card{
   background:#08153d;
-  padding:35px;
-  border-radius:25px;
+  padding:40px;
+  border-radius:30px;
 }
 
 .card h2{
-  font-size:36px;
-  margin-bottom:25px;
+  font-size:50px;
+  margin-bottom:30px;
 }
 
 input{
   width:100%;
-  padding:20px;
+  padding:22px;
   margin-bottom:20px;
   border:none;
-  border-radius:12px;
-  font-size:20px;
+  border-radius:15px;
   background:#13214d;
   color:white;
+  font-size:22px;
+  box-sizing:border-box;
 }
 
 .buttons{
   display:flex;
-  gap:15px;
+  gap:20px;
 }
 
 button{
   flex:1;
-  padding:18px;
+  padding:20px;
   border:none;
-  border-radius:12px;
-  font-size:20px;
+  border-radius:15px;
+  font-size:24px;
   cursor:pointer;
 }
 
@@ -160,7 +155,10 @@ button{
 }
 
 .message{
-  margin-top:20px;
+  margin-top:25px;
+  background:#13214d;
+  padding:18px;
+  border-radius:12px;
   font-size:18px;
 }
 
@@ -171,7 +169,7 @@ button{
 }
 
 .matches h2{
-  font-size:40px;
+  font-size:50px;
   margin-bottom:30px;
 }
 
@@ -183,21 +181,19 @@ button{
 
 .match{
   background:#08153d;
-  padding:25px;
+  padding:30px;
   border-radius:25px;
 }
 
 .league{
   color:orange;
   margin-bottom:15px;
-  font-size:14px;
-  text-transform:uppercase;
 }
 
 .teams{
-  font-size:32px;
+  font-size:34px;
   font-weight:bold;
-  margin-bottom:25px;
+  margin-bottom:20px;
 }
 
 .odds{
@@ -209,20 +205,17 @@ button{
 .odds button{
   background:#13214d;
   color:white;
+  font-size:18px;
 }
 
 @media(max-width:900px){
 
-.hero{
+.container{
   grid-template-columns:1fr;
 }
 
 .left h1{
-  font-size:55px;
-}
-
-.navbar{
-  padding:25px;
+  font-size:60px;
 }
 
 }
@@ -233,7 +226,7 @@ button{
 
 <body>
 
-<div class="navbar">
+<div class="nav">
 
 <div class="logo">
 <span>●</span> Amicbridge
@@ -245,7 +238,7 @@ Connect Wallet
 
 </div>
 
-<section class="hero">
+<div class="container">
 
 <div class="left">
 
@@ -254,8 +247,8 @@ Crypto Sports Betting
 </h1>
 
 <p>
-Bet on live sports using modern crypto technology,
-secure authentication and fast payouts.
+Bet on live sports using crypto technology,
+fast payouts and secure authentication.
 </p>
 
 </div>
@@ -264,7 +257,7 @@ secure authentication and fast payouts.
 
 <h2>Login or Register</h2>
 
-<form method="POST">
+<form method="POST" action="/">
 
 <input
 type="email"
@@ -283,19 +276,19 @@ required
 <div class="buttons">
 
 <button
-class="register"
 type="submit"
 name="action"
 value="register"
+class="register"
 >
 Register
 </button>
 
 <button
-class="login"
 type="submit"
 name="action"
 value="login"
+class="login"
 >
 Login
 </button>
@@ -305,12 +298,16 @@ Login
 </form>
 
 {
-  message && <p class="message">{message}</p>
+  message && (
+    <div class="message">
+      {message}
+    </div>
+  )
 }
 
 </div>
 
-</section>
+</div>
 
 <section class="matches">
 
@@ -319,57 +316,36 @@ Login
 <div class="grid">
 
 <div class="match">
-
-<div class="league">
-Champions League
-</div>
-
-<div class="teams">
-Barcelona vs Real Madrid
-</div>
+<div class="league">Champions League</div>
+<div class="teams">Barcelona vs Real Madrid</div>
 
 <div class="odds">
 <button>1 • 2.10</button>
-<button>X • 3.25</button>
-<button>2 • 2.80</button>
+<button>X • 3.20</button>
+<button>2 • 2.90</button>
 </div>
-
-</div>
-
-<div class="match">
-
-<div class="league">
-Premier League
-</div>
-
-<div class="teams">
-Arsenal vs PSG
-</div>
-
-<div class="odds">
-<button>1 • 1.95</button>
-<button>X • 3.40</button>
-<button>2 • 4.00</button>
-</div>
-
 </div>
 
 <div class="match">
-
-<div class="league">
-Eredivisie
-</div>
-
-<div class="teams">
-Ajax vs PSV
-</div>
+<div class="league">Premier League</div>
+<div class="teams">Arsenal vs PSG</div>
 
 <div class="odds">
-<button>1 • 2.30</button>
+<button>1 • 1.90</button>
 <button>X • 3.10</button>
-<button>2 • 2.40</button>
+<button>2 • 4.20</button>
+</div>
 </div>
 
+<div class="match">
+<div class="league">Eredivisie</div>
+<div class="teams">Ajax vs PSV</div>
+
+<div class="odds">
+<button>1 • 2.40</button>
+<button>X • 3.00</button>
+<button>2 • 2.50</button>
+</div>
 </div>
 
 </div>
