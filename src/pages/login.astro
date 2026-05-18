@@ -1,7 +1,7 @@
 ---
 import { supabase } from '../lib/supabase'
 
-let error = ''
+let message = ''
 
 if (Astro.request.method === 'POST') {
   const formData = await Astro.request.formData()
@@ -9,75 +9,96 @@ if (Astro.request.method === 'POST') {
   const email = formData.get('email')
   const password = formData.get('password')
 
-  const { data, error: loginError } = await supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   })
 
-  if (loginError) {
-    error = loginError.message
+  if (error) {
+    message = error.message
   } else {
-    return Astro.redirect('/')
+    message = 'Login successful'
   }
 }
 ---
 
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Login</title>
+<meta charset="UTF-8" />
+<title>Login</title>
 
-  <style>
-    body {
-      background: #020b2d;
-      color: white;
-      font-family: Arial;
-      padding: 40px;
-    }
+<style>
+body{
+  background:#020b2d;
+  color:white;
+  font-family:Arial;
+  padding:40px;
+}
 
-    h1 {
-      font-size: 70px;
-    }
+.container{
+  max-width:600px;
+}
 
-    input {
-      width: 500px;
-      padding: 20px;
-      margin-bottom: 20px;
-      font-size: 24px;
-      display: block;
-    }
+h1{
+  font-size:70px;
+}
 
-    button {
-      background: orange;
-      color: white;
-      border: none;
-      padding: 20px 40px;
-      font-size: 30px;
-      cursor: pointer;
-    }
+input{
+  width:100%;
+  padding:20px;
+  margin-bottom:20px;
+  font-size:22px;
+}
 
-    .error {
-      color: red;
-      margin-top: 20px;
-    }
-  </style>
+button{
+  background:green;
+  color:white;
+  border:none;
+  padding:20px 40px;
+  font-size:28px;
+  cursor:pointer;
+}
+
+.message{
+  margin-top:20px;
+  font-size:20px;
+}
+</style>
 </head>
 
 <body>
 
+<div class="container">
+
 <h1>Login</h1>
 
 <form method="POST">
-  <input type="email" name="email" placeholder="Email" required />
 
-  <input type="password" name="password" placeholder="Password" required />
+<input
+type="email"
+name="email"
+placeholder="Email"
+required
+/>
 
-  <button type="submit">Login</button>
+<input
+type="password"
+name="password"
+placeholder="Password"
+required
+/>
+
+<button type="submit">
+Login
+</button>
+
 </form>
 
 {
-  error && <p class="error">{error}</p>
+  message && <p class="message">{message}</p>
 }
+
+</div>
 
 </body>
 </html>
