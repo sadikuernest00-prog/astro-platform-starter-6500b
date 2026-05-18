@@ -1,50 +1,90 @@
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Register - Amicbridge</title>
+
+  <style>
+    body {
+      background: #081226;
+      color: white;
+      font-family: Arial;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 70px;
+    }
+
+    input {
+      display: block;
+      margin-bottom: 20px;
+      padding: 20px;
+      width: 600px;
+      font-size: 20px;
+    }
+
+    button {
+      padding: 20px 40px;
+      background: orange;
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 22px;
+    }
+  </style>
 </head>
 
-<body style="background:#081226;color:white;font-family:Arial;padding:40px;">
+<body>
 
-<h1 style="font-size:70px;">Create Account</h1>
+<h1>Create Account</h1>
 
 <input
   id="email"
   type="email"
   placeholder="Email"
-  style="display:block;margin-bottom:20px;padding:20px;width:600px;font-size:20px;"
 />
 
 <input
   id="password"
   type="password"
   placeholder="Password"
-  style="display:block;margin-bottom:20px;padding:20px;width:600px;font-size:20px;"
 />
 
-<button
-  id="registerBtn"
-  style="padding:20px 40px;background:orange;border:none;color:white;font-size:28px;cursor:pointer;"
->
+<button id="registerBtn">
   Register
 </button>
 
-<p id="message" style="margin-top:20px;font-size:22px;"></p>
+<p id="message"></p>
 
 <script type="module">
-  import { supabase } from '../lib/supabase.js'
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+  const supabaseUrl = 'https://fvrmcoukkczweuneyovf.supabase.co'
+
+  const supabaseKey = 'sb_publishable_bZL-upuSb3I35MVMTciL9w_HolwKJQt'
+
+  const supabase = createClient(supabaseUrl, supabaseKey)
 
   const button = document.getElementById('registerBtn')
 
   button.addEventListener('click', async () => {
+
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
+    const message = document.getElementById('message')
+
+    message.innerText = 'Creating account...'
 
     const { data, error } = await supabase.auth.signUp({
       email,
       password
     })
-
-    const message = document.getElementById('message')
 
     if (error) {
       message.innerText = error.message
