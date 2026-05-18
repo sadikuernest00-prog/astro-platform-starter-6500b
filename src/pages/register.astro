@@ -1,4 +1,3 @@
-
 ---
 import { supabase } from '../lib/supabase'
 ---
@@ -12,40 +11,35 @@ import { supabase } from '../lib/supabase'
 
 <h1>Create Account</h1>
 
-<form id="registerForm">
-  <input
-    id="email"
-    type="email"
-    placeholder="Email"
-    style="display:block;margin-bottom:15px;padding:10px;width:300px;"
-  />
+<input
+  id="email"
+  type="email"
+  placeholder="Email"
+  style="display:block;margin-bottom:15px;padding:10px;width:300px;"
+/>
 
-  <input
-    id="password"
-    type="password"
-    placeholder="Password"
-    style="display:block;margin-bottom:15px;padding:10px;width:300px;"
-  />
+<input
+  id="password"
+  type="password"
+  placeholder="Password"
+  style="display:block;margin-bottom:15px;padding:10px;width:300px;"
+/>
 
-  <button
-    type="submit"
-    style="padding:12px 20px;background:orange;border:none;color:white;"
-  >
-    Register
-  </button>
-</form>
+<button
+  id="registerBtn"
+  style="padding:12px 30px;background:orange;border:none;color:white;font-size:18px;"
+>
+  Register
+</button>
 
 <p id="message"></p>
 
 <script type="module">
   import { supabase } from '../lib/supabase.js'
 
-  const form = document.getElementById('registerForm')
-  const message = document.getElementById('message')
+  const button = document.getElementById('registerBtn')
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault()
-
+  button.addEventListener('click', async () => {
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
 
@@ -54,9 +48,10 @@ import { supabase } from '../lib/supabase'
       password
     })
 
+    const message = document.getElementById('message')
+
     if (error) {
       message.innerText = error.message
-      console.log(error)
     } else {
       message.innerText = 'Account created successfully!'
       console.log(data)
