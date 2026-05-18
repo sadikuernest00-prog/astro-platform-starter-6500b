@@ -1,13 +1,15 @@
-# Professional `src/pages/index.astro`
-
-```astro
 ---
-import { supabase } from '../lib/supabase'
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(
+  'https://fvrmcoukkczweuneyovf.supabase.co',
+  'sb_publishable_bZL-upuSb3I35MVMTciL9w_HolwKJQt'
+)
 
 let message = ''
-let success = false
 
 if (Astro.request.method === 'POST') {
+
   const formData = await Astro.request.formData()
 
   const action = formData.get('action')
@@ -15,6 +17,7 @@ if (Astro.request.method === 'POST') {
   const password = formData.get('password')
 
   if (action === 'register') {
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -22,14 +25,13 @@ if (Astro.request.method === 'POST') {
 
     if (error) {
       message = error.message
-      success = false
     } else {
-      message = 'Account created successfully'
-      success = true
+      message = 'Account created successfully!'
     }
   }
 
   if (action === 'login') {
+
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -37,412 +39,343 @@ if (Astro.request.method === 'POST') {
 
     if (error) {
       message = error.message
-      success = false
     } else {
-      message = 'Login successful'
-      success = true
+      message = 'Login successful!'
     }
   }
 }
 ---
 
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Amicbridge</title>
+<meta charset="UTF-8" />
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #020617 0%, #07143a 100%);
-      color: white;
-      min-height: 100vh;
-    }
+<title>Amicbridge</title>
 
-    .navbar {
-      width: 100%;
-      padding: 25px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(10px);
-    }
+<style>
 
-    .logo {
-      font-size: 34px;
-      font-weight: bold;
-      color: white;
-    }
+body{
+  margin:0;
+  background:#020b2d;
+  color:white;
+  font-family:Arial;
+}
 
-    .logo span {
-      color: #ff9800;
-    }
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:30px 60px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
 
-    .wallet-btn {
-      background: linear-gradient(135deg, #ff9800, #ffb74d);
-      color: white;
-      border: none;
-      padding: 14px 24px;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 10px 30px rgba(255,152,0,0.25);
-    }
+.logo{
+  font-size:40px;
+  font-weight:bold;
+}
 
-    .hero {
-      width: 100%;
-      padding: 80px 30px 40px;
-      display: flex;
-      justify-content: center;
-    }
+.logo span{
+  color:orange;
+}
 
-    .hero-inner {
-      width: 100%;
-      max-width: 1300px;
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 40px;
-      align-items: start;
-    }
+.wallet{
+  background:orange;
+  color:white;
+  border:none;
+  padding:15px 25px;
+  border-radius:12px;
+  font-size:18px;
+  cursor:pointer;
+}
 
-    .left-side h1 {
-      font-size: 78px;
-      line-height: 1;
-      margin-bottom: 25px;
-    }
+.hero{
+  max-width:1300px;
+  margin:auto;
+  padding:80px 30px;
+  display:grid;
+  grid-template-columns:1fr 450px;
+  gap:40px;
+}
 
-    .left-side p {
-      font-size: 22px;
-      color: #b0bdd7;
-      max-width: 700px;
-      line-height: 1.6;
-      margin-bottom: 40px;
-    }
+.left h1{
+  font-size:80px;
+  line-height:1;
+  margin-bottom:30px;
+}
 
-    .auth-card {
-      background: rgba(9, 20, 52, 0.9);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 30px;
-      padding: 35px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-      backdrop-filter: blur(20px);
-    }
+.left p{
+  font-size:24px;
+  color:#b0bdd7;
+  line-height:1.5;
+}
 
-    .auth-card h2 {
-      font-size: 32px;
-      margin-bottom: 25px;
-    }
+.card{
+  background:#08153d;
+  padding:35px;
+  border-radius:25px;
+}
 
-    .auth-card input {
-      width: 100%;
-      padding: 18px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.06);
-      color: white;
-      font-size: 18px;
-      margin-bottom: 20px;
-      outline: none;
-    }
+.card h2{
+  font-size:36px;
+  margin-bottom:25px;
+}
 
-    .auth-card input::placeholder {
-      color: #9fb1d4;
-    }
+input{
+  width:100%;
+  padding:20px;
+  margin-bottom:20px;
+  border:none;
+  border-radius:12px;
+  font-size:20px;
+  background:#13214d;
+  color:white;
+}
 
-    .button-group {
-      display: flex;
-      gap: 15px;
-      margin-top: 10px;
-    }
+.buttons{
+  display:flex;
+  gap:15px;
+}
 
-    .register-btn,
-    .login-btn {
-      flex: 1;
-      border: none;
-      padding: 18px;
-      border-radius: 14px;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
+button{
+  flex:1;
+  padding:18px;
+  border:none;
+  border-radius:12px;
+  font-size:20px;
+  cursor:pointer;
+}
 
-    .register-btn {
-      background: linear-gradient(135deg, #ff9800, #ffb74d);
-      color: white;
-    }
+.register{
+  background:orange;
+  color:white;
+}
 
-    .login-btn {
-      background: linear-gradient(135deg, #00c853, #00e676);
-      color: white;
-    }
+.login{
+  background:#00c853;
+  color:white;
+}
 
-    .register-btn:hover,
-    .login-btn:hover {
-      transform: translateY(-2px);
-      opacity: 0.95;
-    }
+.message{
+  margin-top:20px;
+  font-size:18px;
+}
 
-    .message {
-      margin-top: 20px;
-      padding: 16px;
-      border-radius: 12px;
-      font-size: 16px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
+.matches{
+  max-width:1300px;
+  margin:auto;
+  padding:0 30px 80px;
+}
 
-    .success {
-      border-color: rgba(0,255,140,0.4);
-      color: #7CFFB2;
-    }
+.matches h2{
+  font-size:40px;
+  margin-bottom:30px;
+}
 
-    .error {
-      border-color: rgba(255,0,0,0.3);
-      color: #ff8a8a;
-    }
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:25px;
+}
 
-    .matches {
-      width: 100%;
-      max-width: 1300px;
-      margin: 40px auto 80px;
-      padding: 0 30px;
-    }
+.match{
+  background:#08153d;
+  padding:25px;
+  border-radius:25px;
+}
 
-    .matches-title {
-      font-size: 38px;
-      margin-bottom: 30px;
-    }
+.league{
+  color:orange;
+  margin-bottom:15px;
+  font-size:14px;
+  text-transform:uppercase;
+}
 
-    .matches-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 25px;
-    }
+.teams{
+  font-size:32px;
+  font-weight:bold;
+  margin-bottom:25px;
+}
 
-    .match-card {
-      background: rgba(9, 20, 52, 0.9);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 28px;
-      padding: 28px;
-      transition: 0.2s;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-    }
+.odds{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
 
-    .match-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255,152,0,0.4);
-    }
+.odds button{
+  background:#13214d;
+  color:white;
+}
 
-    .league {
-      color: #ffb74d;
-      font-size: 15px;
-      margin-bottom: 15px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+@media(max-width:900px){
 
-    .teams {
-      font-size: 30px;
-      font-weight: bold;
-      margin-bottom: 25px;
-      line-height: 1.3;
-    }
+.hero{
+  grid-template-columns:1fr;
+}
 
-    .odds {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
+.left h1{
+  font-size:55px;
+}
 
-    .odds button {
-      background: rgba(255,255,255,0.08);
-      border: none;
-      color: white;
-      padding: 16px;
-      border-radius: 14px;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
+.navbar{
+  padding:25px;
+}
 
-    .odds button:hover {
-      background: #ff9800;
-      transform: scale(1.03);
-    }
+}
 
-    @media (max-width: 980px) {
-      .hero-inner {
-        grid-template-columns: 1fr;
-      }
+</style>
 
-      .left-side h1 {
-        font-size: 54px;
-      }
-
-      .navbar {
-        padding: 25px;
-      }
-    }
-  </style>
 </head>
 
 <body>
 
-  <div class="navbar">
-    <div class="logo">
-      <span>●</span> Amicbridge
-    </div>
+<div class="navbar">
 
-    <button class="wallet-btn">
-      Connect Wallet
-    </button>
-  </div>
+<div class="logo">
+<span>●</span> Amicbridge
+</div>
 
-  <section class="hero">
+<button class="wallet">
+Connect Wallet
+</button>
 
-    <div class="hero-inner">
+</div>
 
-      <div class="left-side">
-        <h1>
-          The Future of
-          <br />
-          Web3 Betting
-        </h1>
+<section class="hero">
 
-        <p>
-          Bet on football, esports and live sports using modern crypto payments,
-          secure authentication and a professional betting experience.
-        </p>
-      </div>
+<div class="left">
 
-      <div class="auth-card">
+<h1>
+Crypto Sports Betting
+</h1>
 
-        <h2>Login or Register</h2>
+<p>
+Bet on live sports using modern crypto technology,
+secure authentication and fast payouts.
+</p>
 
-        <form method="POST">
+</div>
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            required
-          />
+<div class="card">
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-            required
-          />
+<h2>Login or Register</h2>
 
-          <div class="button-group">
+<form method="POST">
 
-            <button
-              class="register-btn"
-              type="submit"
-              name="action"
-              value="register"
-            >
-              Register
-            </button>
+<input
+type="email"
+name="email"
+placeholder="Email"
+required
+/>
 
-            <button
-              class="login-btn"
-              type="submit"
-              name="action"
-              value="login"
-            >
-              Login
-            </button>
+<input
+type="password"
+name="password"
+placeholder="Password"
+required
+/>
 
-          </div>
+<div class="buttons">
 
-        </form>
+<button
+class="register"
+type="submit"
+name="action"
+value="register"
+>
+Register
+</button>
 
-        {
-          message && (
-            <div class={`message ${success ? 'success' : 'error'}`}>
-              {message}
-            </div>
-          )
-        }
+<button
+class="login"
+type="submit"
+name="action"
+value="login"
+>
+Login
+</button>
 
-      </div>
+</div>
 
-    </div>
+</form>
 
-  </section>
+{
+  message && <p class="message">{message}</p>
+}
 
-  <section class="matches">
+</div>
 
-    <h2 class="matches-title">Live Matches</h2>
+</section>
 
-    <div class="matches-grid">
+<section class="matches">
 
-      <div class="match-card">
-        <div class="league">Champions League</div>
+<h2>Live Matches</h2>
 
-        <div class="teams">
-          Barcelona vs
-          <br />
-          Real Madrid
-        </div>
+<div class="grid">
 
-        <div class="odds">
-          <button>1 • 2.10</button>
-          <button>X • 3.25</button>
-          <button>2 • 2.85</button>
-        </div>
-      </div>
+<div class="match">
 
-      <div class="match-card">
-        <div class="league">Premier League</div>
+<div class="league">
+Champions League
+</div>
 
-        <div class="teams">
-          Arsenal vs
-          <br />
-          PSG
-        </div>
+<div class="teams">
+Barcelona vs Real Madrid
+</div>
 
-        <div class="odds">
-          <button>1 • 1.95</button>
-          <button>X • 3.50</button>
-          <button>2 • 4.10</button>
-        </div>
-      </div>
+<div class="odds">
+<button>1 • 2.10</button>
+<button>X • 3.25</button>
+<button>2 • 2.80</button>
+</div>
 
-      <div class="match-card">
-        <div class="league">Eredivisie</div>
+</div>
 
-        <div class="teams">
-          Ajax vs
-          <br />
-          PSV
-        </div>
+<div class="match">
 
-        <div class="odds">
-          <button>1 • 2.40</button>
-          <button>X • 3.10</button>
-          <button>2 • 2.25</button>
-        </div>
-      </div>
+<div class="league">
+Premier League
+</div>
 
-    </div>
+<div class="teams">
+Arsenal vs PSG
+</div>
 
-  </section>
+<div class="odds">
+<button>1 • 1.95</button>
+<button>X • 3.40</button>
+<button>2 • 4.00</button>
+</div>
+
+</div>
+
+<div class="match">
+
+<div class="league">
+Eredivisie
+</div>
+
+<div class="teams">
+Ajax vs PSV
+</div>
+
+<div class="odds">
+<button>1 • 2.30</button>
+<button>X • 3.10</button>
+<button>2 • 2.40</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
 
 </body>
+
 </html>
-```
