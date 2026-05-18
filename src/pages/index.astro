@@ -1,8 +1,4 @@
 ---
-const response = await fetch('https://amicbridge.com/api/matches')
-const data = await response.json()
-
-const matches = data.response || []
 ---
 
 <html lang="en">
@@ -17,382 +13,368 @@ const matches = data.response || []
       margin:0;
       padding:0;
       box-sizing:border-box;
-    }
-
-    body{
-      background:#020b2d;
-      color:white;
       font-family:Arial, sans-serif;
     }
 
-    .navbar{
+    body{
+      background:#020b3d;
+      color:white;
+    }
+
+    header{
+      width:100%;
+      padding:25px 40px;
+      border-bottom:1px solid rgba(255,255,255,0.1);
+
       display:flex;
       justify-content:space-between;
       align-items:center;
-      padding:25px 50px;
-      border-bottom:1px solid rgba(255,255,255,0.1);
-      background:#05113b;
     }
 
     .logo{
-      font-size:42px;
+      font-size:52px;
       font-weight:bold;
-      color:orange;
+      color:#ffb000;
     }
 
     .wallet-btn{
-      background:orange;
+      background:#ffb000;
       border:none;
-      padding:15px 28px;
-      border-radius:14px;
+      padding:18px 40px;
+      border-radius:16px;
       color:white;
-      font-size:18px;
+      font-size:24px;
       font-weight:bold;
       cursor:pointer;
     }
 
     .hero{
-      display:grid;
-      grid-template-columns:1fr 450px;
-      gap:40px;
-      padding:70px 50px;
+      width:100%;
+      min-height:90vh;
+
+      display:flex;
+      justify-content:space-between;
       align-items:center;
+
+      padding:60px;
+      gap:60px;
     }
 
-    .hero h1{
-      font-size:90px;
-      line-height:1;
-      margin-bottom:20px;
+    .left{
+      flex:1;
     }
 
-    .hero p{
-      font-size:24px;
-      color:#b6bdd3;
-      line-height:1.5;
-      max-width:700px;
-    }
-
-    .auth-box{
-      background:#081544;
-      padding:35px;
-      border-radius:24px;
-      box-shadow:0 0 30px rgba(0,0,0,0.35);
-    }
-
-    .auth-box h2{
-      font-size:42px;
+    .left h1{
+      font-size:110px;
+      line-height:0.9;
       margin-bottom:30px;
     }
 
-    .auth-box input{
+    .left p{
+      font-size:30px;
+      color:#c8d1ff;
+      max-width:700px;
+      line-height:1.5;
+    }
+
+    .right{
+      width:520px;
+      background:#0c1657;
+      border-radius:30px;
+      padding:40px;
+    }
+
+    .right h2{
+      font-size:56px;
+      margin-bottom:35px;
+    }
+
+    .input{
       width:100%;
-      padding:18px;
-      margin-bottom:20px;
+      padding:24px;
       border:none;
-      border-radius:14px;
-      background:#13235f;
+      border-radius:18px;
+      margin-bottom:25px;
+      background:#18256f;
       color:white;
+      font-size:24px;
+    }
+
+    .buttons{
+      display:flex;
+      gap:20px;
+    }
+
+    .register{
+      flex:1;
+      background:#ffb000;
+      border:none;
+      border-radius:18px;
+      padding:22px;
+      font-size:26px;
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .login{
+      flex:1;
+      background:#00d84f;
+      border:none;
+      border-radius:18px;
+      padding:22px;
+      font-size:26px;
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .matches{
+      padding:60px;
+    }
+
+    .matches h2{
+      font-size:60px;
+      margin-bottom:40px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:30px;
+    }
+
+    .card{
+      background:#0c1657;
+      padding:30px;
+      border-radius:25px;
+    }
+
+    .league{
+      color:#a6b3ff;
+      margin-bottom:15px;
       font-size:18px;
     }
 
-    .auth-buttons{
+    .teams{
+      font-size:34px;
+      font-weight:bold;
+      margin-bottom:25px;
+      line-height:1.3;
+    }
+
+    .odds{
       display:flex;
       gap:15px;
     }
 
-    .register-btn{
+    .odd{
       flex:1;
+      background:#18256f;
       padding:18px;
-      border:none;
-      border-radius:14px;
-      background:orange;
-      color:white;
+      text-align:center;
+      border-radius:15px;
       font-size:22px;
       font-weight:bold;
       cursor:pointer;
     }
 
-    .login-btn{
-      flex:1;
-      padding:18px;
-      border:none;
-      border-radius:14px;
-      background:#00c853;
-      color:white;
+    .message{
+      margin-top:20px;
       font-size:22px;
-      font-weight:bold;
-      cursor:pointer;
-    }
-
-    .matches-title{
-      padding:0 50px;
-      font-size:42px;
-      margin-bottom:25px;
-    }
-
-    .matches-container{
-      padding:0 50px 80px;
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
-      gap:25px;
-    }
-
-    .match-card{
-      background:#081544;
-      border-radius:22px;
-      padding:25px;
-      box-shadow:0 0 25px rgba(0,0,0,0.35);
-    }
-
-    .league{
-      color:orange;
-      font-size:14px;
-      margin-bottom:14px;
-      font-weight:bold;
-    }
-
-    .teams{
-      font-size:28px;
-      font-weight:bold;
-      margin-bottom:16px;
-      line-height:1.3;
-    }
-
-    .live{
       color:#00ff88;
-      font-size:18px;
-      margin-bottom:12px;
-      font-weight:bold;
     }
 
-    .score{
-      font-size:36px;
-      font-weight:bold;
-      margin-bottom:25px;
-    }
-
-    .bet-buttons{
-      display:flex;
-      gap:12px;
-    }
-
-    .bet-buttons button{
-      flex:1;
-      padding:15px;
-      border:none;
-      border-radius:12px;
-      background:orange;
-      color:white;
-      font-size:18px;
-      font-weight:bold;
-      cursor:pointer;
-    }
-
-    .empty{
-      padding:50px;
-      color:#ccc;
-      font-size:24px;
-    }
-
-    @media(max-width:1000px){
-
-      .hero{
-        grid-template-columns:1fr;
-      }
-
-      .hero h1{
-        font-size:60px;
-      }
-
-      .navbar{
-        flex-direction:column;
-        gap:20px;
-      }
-
-    }
   </style>
 </head>
 
 <body>
 
-  <div class="navbar">
+<header>
+  <div class="logo">⚽ Amicbridge</div>
 
-    <div class="logo">
-      ⚽ Amicbridge
+  <button class="wallet-btn">
+    Connect Wallet
+  </button>
+</header>
+
+<section class="hero">
+
+  <div class="left">
+    <h1>
+      Crypto<br/>
+      Sports<br/>
+      Betting
+    </h1>
+
+    <p>
+      Bet on live football matches using crypto technology,
+      secure authentication and real-time football data.
+    </p>
+  </div>
+
+  <div class="right">
+
+    <h2>Login or Register</h2>
+
+    <input
+      id="email"
+      class="input"
+      type="email"
+      placeholder="Email"
+    />
+
+    <input
+      id="password"
+      class="input"
+      type="password"
+      placeholder="Password"
+    />
+
+    <div class="buttons">
+
+      <button
+        class="register"
+        onclick="registerUser()"
+      >
+        Register
+      </button>
+
+      <button
+        class="login"
+        onclick="loginUser()"
+      >
+        Login
+      </button>
+
     </div>
 
-    <button class="wallet-btn">
-      Connect Wallet
-    </button>
+    <div id="message" class="message"></div>
 
   </div>
 
-  <div class="hero">
+</section>
 
-    <div>
+<section class="matches">
 
-      <h1>
-        Crypto Sports Betting
-      </h1>
+  <h2>🔥 Live Football Matches</h2>
 
-      <p>
-        Bet on live football matches using modern crypto technology,
-        secure authentication and real-time football data.
-      </p>
+  <div class="grid">
 
-    </div>
+    <div class="card">
+      <div class="league">Champions League</div>
 
-    <div class="auth-box">
-
-      <h2>
-        Login or Register
-      </h2>
-
-      <input
-        type="email"
-        id="email"
-        placeholder="Email"
-      />
-
-      <input
-        type="password"
-        id="password"
-        placeholder="Password"
-      />
-
-      <div class="auth-buttons">
-
-        <button class="register-btn">
-          Register
-        </button>
-
-        <button class="login-btn">
-          Login
-        </button>
-
+      <div class="teams">
+        Barcelona vs Real Madrid
       </div>
 
+      <div class="odds">
+        <div class="odd">1.90</div>
+        <div class="odd">3.20</div>
+        <div class="odd">2.50</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="league">Premier League</div>
+
+      <div class="teams">
+        Arsenal vs Liverpool
+      </div>
+
+      <div class="odds">
+        <div class="odd">2.10</div>
+        <div class="odd">3.00</div>
+        <div class="odd">2.70</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="league">Serie A</div>
+
+      <div class="teams">
+        Inter vs Juventus
+      </div>
+
+      <div class="odds">
+        <div class="odd">1.80</div>
+        <div class="odd">3.50</div>
+        <div class="odd">2.90</div>
+      </div>
     </div>
 
   </div>
 
-  <div class="matches-title">
-    🔥 Live Football Matches
-  </div>
+</section>
 
-  {
-    matches.length > 0 ? (
+<script type="module">
 
-      <div class="matches-container">
+  import { createClient }
+  from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-        {matches.map((match) => (
+  const supabaseUrl =
+    'YOUR_SUPABASE_URL'
 
-          <div class="match-card">
+  const supabaseKey =
+    'YOUR_SUPABASE_ANON_KEY'
 
-            <div class="league">
-              {match.league.name}
-            </div>
+  const supabase =
+    createClient(supabaseUrl, supabaseKey)
 
-            <div class="teams">
-              {match.teams.home.name}
-              <br />
-              vs
-              <br />
-              {match.teams.away.name}
-            </div>
+  async function registerUser() {
 
-            <div class="live">
-              LIVE • {match.fixture.status.elapsed}'
-            </div>
+    const email =
+      document.getElementById('email').value
 
-            <div class="score">
-              {match.goals.home} - {match.goals.away}
-            </div>
+    const password =
+      document.getElementById('password').value
 
-            <div class="bet-buttons">
+    const message =
+      document.getElementById('message')
 
-              <button>
-                Home
-              </button>
+    const { error } =
+      await supabase.auth.signUp({
+        email,
+        password
+      })
 
-              <button>
-                Draw
-              </button>
-
-              <button>
-                Away
-              </button>
-
-            </div>
-
-          </div>
-
-        ))}
-
-      </div>
-
-    ) : (
-
-      <div class="empty">
-        No live football matches right now ⚽
-      </div>
-
-    )
+    if(error){
+      message.innerText = error.message
+    } else {
+      message.innerText =
+        'Registration successful!'
+    }
   }
 
-  <script type="module">
-    import { supabase } from '../lib/supabase.js'
+  async function loginUser() {
 
-    const registerBtn =
-      document.querySelector('.register-btn')
+    const email =
+      document.getElementById('email').value
 
-    const loginBtn =
-      document.querySelector('.login-btn')
+    const password =
+      document.getElementById('password').value
 
-    registerBtn.addEventListener('click', async () => {
+    const message =
+      document.getElementById('message')
 
-      const email =
-        document.getElementById('email').value
+    const { error } =
+      await supabase.auth.signInWithPassword({
+        email,
+        password
+      })
 
-      const password =
-        document.getElementById('password').value
+    if(error){
+      message.innerText = error.message
+    } else {
+      message.innerText =
+        'Login successful!'
+    }
+  }
 
-      const { error } =
-        await supabase.auth.signUp({
-          email,
-          password
-        })
+  window.registerUser = registerUser
+  window.loginUser = loginUser
 
-      if(error){
-        alert(error.message)
-      } else {
-        alert('Registration successful!')
-      }
-
-    })
-
-    loginBtn.addEventListener('click', async () => {
-
-      const email =
-        document.getElementById('email').value
-
-      const password =
-        document.getElementById('password').value
-
-      const { error } =
-        await supabase.auth.signInWithPassword({
-          email,
-          password
-        })
-
-      if(error){
-        alert(error.message)
-      } else {
-        alert('Login successful!')
-      }
-
-    })
-  </script>
+</script>
 
 </body>
 </html>
