@@ -1,4 +1,5 @@
 ---
+import { supabase } from '../lib/supabase'
 ---
 
 <html lang="en">
@@ -10,25 +11,55 @@
 
 <h1>Create Account</h1>
 
-<form>
+<form id="registerForm">
   <input
+    id="email"
     type="email"
     placeholder="Email"
     style="display:block;margin-bottom:15px;padding:10px;width:300px;"
   />
 
   <input
+    id="password"
     type="password"
     placeholder="Password"
     style="display:block;margin-bottom:15px;padding:10px;width:300px;"
   />
 
   <button
+    type="submit"
     style="padding:12px 20px;background:orange;border:none;color:white;"
   >
     Register
   </button>
 </form>
+
+<p id="message"></p>
+
+<script type="module">
+  import { supabase } from '../lib/supabase.js'
+
+  const form = document.getElementById('registerForm')
+  const message = document.getElementById('message')
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault()
+
+    const email = document.getElementById('email').value
+    const password = document.getElementById('password').value
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password
+    })
+
+    if (error) {
+      message.innerText = error.message
+    } else {
+      message.innerText = 'Account created successfully!'
+    }
+  })
+</script>
 
 </body>
 </html>
