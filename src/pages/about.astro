@@ -1,33 +1,135 @@
+---
+---
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | Amic Biotech</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f4f8fd;
+color:#222;
+}
+
+.about{
+padding:90px 10%;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+display:grid;
+grid-template-columns:1fr 1fr;
+align-items:center;
+gap:70px;
+}
+
+.text h1{
+font-size:60px;
+color:#0d5bd1;
+margin-bottom:25px;
+}
+
+.text p{
+font-size:21px;
+line-height:1.8;
+color:#555;
+margin-bottom:22px;
+}
+
+.text strong{
+color:#1565c0;
+}
+
+.btn{
+display:inline-block;
+margin-top:20px;
+padding:18px 38px;
+background:#1565c0;
+color:white;
+text-decoration:none;
+font-weight:bold;
+border-radius:12px;
+transition:.3s;
+}
+
+.btn:hover{
+background:#0f4ca8;
+}
+
+.image img{
+width:100%;
+border-radius:24px;
+box-shadow:0 20px 50px rgba(0,0,0,.12);
+}
+
+@media(max-width:900px){
+
+.container{
+grid-template-columns:1fr;
+}
+
+.text h1{
+font-size:42px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
 <section class="about">
-  <div class="container">
-    <h1>About Amic Biotech</h1>
 
-    <p>
-      At <strong>Amic Biotech</strong>, our mission is simple: to help improve
-      people's health and well-being through science, innovation, and high-quality
-      nutritional products.
-    </p>
+<div class="container">
 
-    <p>
-      We believe that everyone deserves access to safe, reliable, and
-      evidence-based health solutions. Our team is committed to researching,
-      developing, and delivering products that meet high standards of quality,
-      transparency, and manufacturing excellence.
-    </p>
+<div class="text">
 
-    <p>
-      Innovation is at the heart of everything we do. We continuously explore
-      new ingredients, biotechnology, artificial intelligence, and scientific
-      research to support the development of nutritional products that help
-      people live healthier lives.
-    </p>
+<h1>About Amic Biotech</h1>
 
-    <p>
-      Our vision is to become a trusted biotechnology company recognized for
-      scientific integrity, responsible innovation, and a commitment to improving
-      health worldwide.
-    </p>
+<p>
+<strong>Amic Biotech</strong> is a biotechnology company dedicated to improving people's health through science, innovation, and evidence-based nutrition.
+</p>
 
-    <a href="/research" class="btn">Learn About Our Research</a>
-  </div>
+<p>
+We believe everyone deserves access to safe, reliable, and high-quality healthcare products. Our mission is to research, develop, and deliver premium nutritional supplements that support healthier lives.
+</p>
+
+<p>
+Innovation is at the heart of our company. We continuously explore biotechnology, artificial intelligence, and scientific research to create better products while maintaining the highest standards of quality and transparency.
+</p>
+
+<p>
+Our long-term vision is to become a trusted global biotechnology company recognized for scientific excellence, responsible innovation, and improving health around the world.
+</p>
+
+<a href="/research" class="btn">
+Learn About Our Research
+</a>
+
+</div>
+
+<div class="image">
+
+<img src="/images/hero.png" alt="Amic Biotech">
+
+</div>
+
+</div>
+
 </section>
+
+</body>
+</html>
