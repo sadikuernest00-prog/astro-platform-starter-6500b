@@ -21,12 +21,20 @@ export default function DashboardUser() {
 	}, []);
 
 	async function handleLogout() {
-		await signOut(auth);
-		window.location.href = "/login";
+		try {
+			await signOut(auth);
+			window.location.href = "/login";
+		} catch (error) {
+			console.error("Logout failed:", error);
+		}
 	}
 
 	if (loading) {
-		return <p>Loading account...</p>;
+		return (
+			<div className="user-area">
+				<p>Loading account...</p>
+			</div>
+		);
 	}
 
 	return (
@@ -36,7 +44,7 @@ export default function DashboardUser() {
 				<strong>{email}</strong>
 			</div>
 
-			<button onClick={handleLogout}>
+			<button type="button" onClick={handleLogout}>
 				Log out
 			</button>
 		</div>
