@@ -1,8 +1,19 @@
+---
+import LoginForm from "../components/LoginForm";
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1"
+		/>
+		<meta
+			name="description"
+			content="Sign in or create your Amic account."
+		/>
 		<title>Sign in | Amic</title>
 	</head>
 
@@ -11,57 +22,39 @@
 			<section class="login-card">
 				<a class="back-link" href="/">← Back</a>
 
+				<div class="brand">Amic</div>
+
 				<h1>Welcome to Amic</h1>
-				<p>Sign in to view your financial dashboard.</p>
 
-				<form id="login-form">
-					<label for="email">Email</label>
-					<input
-						id="email"
-						name="email"
-						type="email"
-						placeholder="you@example.com"
-						required
-					/>
+				<p class="introduction">
+					Sign in to view your financial dashboard.
+				</p>
 
-					<label for="password">Password</label>
-					<input
-						id="password"
-						name="password"
-						type="password"
-						placeholder="Enter your password"
-						minlength="6"
-						required
-					/>
-
-					<button type="submit">Sign in</button>
-				</form>
-
-				<div class="divider">
-					<span>or</span>
-				</div>
-
-				<button id="create-account" class="secondary-button">
-					Create account
-				</button>
-
-				<p id="message" class="message"></p>
+				<LoginForm client:load />
 			</section>
 		</main>
 	</body>
 </html>
 
-<style>
-	:global(*) {
+<style is:global>
+	* {
 		box-sizing: border-box;
 	}
 
-	:global(body) {
-		margin: 0;
-		font-family:
-			Inter, Arial, Helvetica, sans-serif;
+	html {
+		font-family: Inter, Arial, Helvetica, sans-serif;
 		background: #f1f4f9;
 		color: #101827;
+	}
+
+	body {
+		margin: 0;
+		min-width: 320px;
+	}
+
+	button,
+	input {
+		font: inherit;
 	}
 
 	.page {
@@ -84,44 +77,69 @@
 	.back-link {
 		color: #71809a;
 		text-decoration: none;
+		font-weight: 600;
+	}
+
+	.back-link:hover {
+		color: #101827;
+	}
+
+	.brand {
+		margin-top: 30px;
+		font-size: 28px;
+		font-weight: 800;
+		letter-spacing: -1.5px;
 	}
 
 	h1 {
-		margin: 35px 0 10px;
+		margin: 22px 0 10px;
 		font-size: 36px;
 		letter-spacing: -1.5px;
 	}
 
-	p {
+	.introduction {
+		margin: 0;
 		color: #71809a;
 		line-height: 1.5;
 	}
 
-	form {
+	.login-form form {
 		display: flex;
 		flex-direction: column;
-		margin-top: 32px;
+		margin-top: 28px;
 	}
 
-	label {
+	.login-form label {
 		margin: 16px 0 8px;
 		font-weight: 700;
 	}
 
-	input {
+	.login-form input {
 		width: 100%;
 		padding: 16px;
 		border: 1px solid #d7deea;
 		border-radius: 14px;
+		background: white;
+		color: #101827;
 		font-size: 16px;
 		outline: none;
+		transition:
+			border-color 0.2s ease,
+			box-shadow 0.2s ease;
 	}
 
-	input:focus {
+	.login-form input:focus {
 		border-color: #101827;
+		box-shadow: 0 0 0 3px rgba(16, 24, 39, 0.1);
 	}
 
-	button {
+	.login-form input:disabled {
+		background: #f3f5f8;
+		cursor: not-allowed;
+	}
+
+	.login-form button {
+		width: 100%;
 		margin-top: 25px;
 		padding: 17px;
 		border: 0;
@@ -131,16 +149,28 @@
 		font-size: 17px;
 		font-weight: 700;
 		cursor: pointer;
+		transition:
+			transform 0.2s ease,
+			opacity 0.2s ease;
 	}
 
-	.secondary-button {
-		width: 100%;
+	.login-form button:hover:not(:disabled) {
+		transform: translateY(-1px);
+		opacity: 0.92;
+	}
+
+	.login-form button:disabled {
+		cursor: not-allowed;
+		opacity: 0.65;
+	}
+
+	.login-form .secondary-button {
 		margin-top: 0;
 		background: #e9edf4;
 		color: #101827;
 	}
 
-	.divider {
+	.login-form .divider {
 		display: flex;
 		align-items: center;
 		gap: 14px;
@@ -148,24 +178,44 @@
 		color: #8a96aa;
 	}
 
-	.divider::before,
-	.divider::after {
+	.login-form .divider::before,
+	.login-form .divider::after {
 		content: "";
 		flex: 1;
 		height: 1px;
 		background: #dfe4ec;
 	}
 
-	.message {
-		min-height: 24px;
+	.login-form .message {
+		margin: 20px 0 0;
+		padding: 13px;
+		border-radius: 12px;
 		text-align: center;
-		margin-top: 20px;
+		line-height: 1.4;
+	}
+
+	.login-form .error-message {
+		background: #fff0f0;
+		color: #b42318;
+	}
+
+	.login-form .success-message {
+		background: #ecfdf3;
+		color: #067647;
 	}
 
 	@media (max-width: 520px) {
+		.page {
+			padding: 16px;
+		}
+
 		.login-card {
 			padding: 30px 22px;
 			border-radius: 24px;
+		}
+
+		h1 {
+			font-size: 31px;
 		}
 	}
 </style>
