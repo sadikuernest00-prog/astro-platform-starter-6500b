@@ -1,0 +1,558 @@
+---
+const userName = "Ernest";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1"
+		/>
+		<meta
+			name="description"
+			content="Amic financial dashboard."
+		/>
+		<title>Dashboard | Amic</title>
+	</head>
+
+	<body>
+		<div class="app-shell">
+			<header class="topbar">
+				<a href="/dashboard" class="brand">Amic</a>
+
+				<div class="topbar-actions">
+					<button class="icon-button" aria-label="Notifications">
+						<span>🔔</span>
+					</button>
+
+					<a href="/profile" class="profile-button">
+						<span class="avatar">{userName.charAt(0)}</span>
+					</a>
+				</div>
+			</header>
+
+			<main class="dashboard">
+				<section class="welcome-section">
+					<p class="eyebrow">Good morning</p>
+					<h1>{userName}</h1>
+				</section>
+
+				<section class="balance-card">
+					<div>
+						<p class="balance-label">Total balance</p>
+						<h2>€12,450.25</h2>
+					</div>
+
+					<button class="eye-button" aria-label="Hide balance">
+						◉
+					</button>
+				</section>
+
+				<section class="quick-actions">
+					<a href="/add-money" class="action-item">
+						<span class="action-icon">＋</span>
+						<span>Add money</span>
+					</a>
+
+					<a href="/send" class="action-item">
+						<span class="action-icon">↗</span>
+						<span>Send</span>
+					</a>
+
+					<a href="/exchange" class="action-item">
+						<span class="action-icon">⇄</span>
+						<span>Exchange</span>
+					</a>
+
+					<a href="/more" class="action-item">
+						<span class="action-icon">•••</span>
+						<span>More</span>
+					</a>
+				</section>
+
+				<section class="section-block">
+					<div class="section-heading">
+						<h2>Accounts</h2>
+						<a href="/accounts">See all</a>
+					</div>
+
+					<div class="account-list">
+						<article class="account-card">
+							<div class="account-icon euro">€</div>
+
+							<div class="account-info">
+								<h3>Euro</h3>
+								<p>Primary account</p>
+							</div>
+
+							<div class="account-value">
+								<strong>€8,250.25</strong>
+								<span>EUR</span>
+							</div>
+						</article>
+
+						<article class="account-card">
+							<div class="account-icon savings">S</div>
+
+							<div class="account-info">
+								<h3>Savings</h3>
+								<p>Emergency fund</p>
+							</div>
+
+							<div class="account-value">
+								<strong>€3,200.00</strong>
+								<span>2.5% saved</span>
+							</div>
+						</article>
+
+						<article class="account-card">
+							<div class="account-icon investment">↗</div>
+
+							<div class="account-info">
+								<h3>Investments</h3>
+								<p>Portfolio value</p>
+							</div>
+
+							<div class="account-value">
+								<strong>€1,000.00</strong>
+								<span class="positive">+4.2%</span>
+							</div>
+						</article>
+					</div>
+				</section>
+
+				<section class="section-block">
+					<div class="section-heading">
+						<h2>Recent activity</h2>
+						<a href="/activity">See all</a>
+					</div>
+
+					<div class="activity-list">
+						<article class="activity-item">
+							<div class="activity-icon">↓</div>
+
+							<div class="activity-info">
+								<h3>Money added</h3>
+								<p>Today, 09:45</p>
+							</div>
+
+							<strong class="positive">+€500.00</strong>
+						</article>
+
+						<article class="activity-item">
+							<div class="activity-icon">₿</div>
+
+							<div class="activity-info">
+								<h3>Bitcoin investment</h3>
+								<p>Yesterday, 18:12</p>
+							</div>
+
+							<strong>-€150.00</strong>
+						</article>
+
+						<article class="activity-item">
+							<div class="activity-icon">S</div>
+
+							<div class="activity-info">
+								<h3>Savings transfer</h3>
+								<p>Monday, 14:30</p>
+							</div>
+
+							<strong>-€200.00</strong>
+						</article>
+					</div>
+				</section>
+			</main>
+
+			<nav class="bottom-nav">
+				<a href="/dashboard" class="nav-item active">
+					<span>⌂</span>
+					<span>Home</span>
+				</a>
+
+				<a href="/portfolio" class="nav-item">
+					<span>▥</span>
+					<span>Invest</span>
+				</a>
+
+				<a href="/payments" class="nav-item">
+					<span>↔</span>
+					<span>Payments</span>
+				</a>
+
+				<a href="/profile" class="nav-item">
+					<span>○</span>
+					<span>Profile</span>
+				</a>
+			</nav>
+		</div>
+	</body>
+</html>
+
+<style>
+	:global(*) {
+		box-sizing: border-box;
+	}
+
+	:global(html) {
+		font-family:
+			Inter, Arial, Helvetica, sans-serif;
+		background: #f5f6f8;
+		color: #111827;
+	}
+
+	:global(body) {
+		margin: 0;
+		min-width: 320px;
+	}
+
+	:global(button),
+	:global(a) {
+		font: inherit;
+	}
+
+	.app-shell {
+		min-height: 100vh;
+		padding-bottom: 105px;
+	}
+
+	.topbar {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 18px 24px;
+		background: rgba(245, 246, 248, 0.92);
+		backdrop-filter: blur(18px);
+	}
+
+	.brand {
+		color: #111827;
+		font-size: 28px;
+		font-weight: 800;
+		letter-spacing: -1.7px;
+		text-decoration: none;
+	}
+
+	.topbar-actions {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.icon-button,
+	.profile-button {
+		width: 44px;
+		height: 44px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 0;
+		border-radius: 50%;
+		background: white;
+		text-decoration: none;
+		box-shadow: 0 5px 18px rgba(17, 24, 39, 0.06);
+	}
+
+	.icon-button {
+		cursor: pointer;
+	}
+
+	.avatar {
+		width: 34px;
+		height: 34px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		background: #111827;
+		color: white;
+		font-weight: 800;
+	}
+
+	.dashboard {
+		width: min(760px, 100%);
+		margin: 0 auto;
+		padding: 18px 20px 30px;
+	}
+
+	.welcome-section {
+		margin: 10px 0 24px;
+	}
+
+	.eyebrow {
+		margin: 0 0 4px;
+		color: #7b8495;
+		font-size: 16px;
+	}
+
+	.welcome-section h1 {
+		margin: 0;
+		font-size: 34px;
+		letter-spacing: -1.4px;
+	}
+
+	.balance-card {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		padding: 28px;
+		border-radius: 28px;
+		background: #111827;
+		color: white;
+		box-shadow: 0 20px 40px rgba(17, 24, 39, 0.18);
+	}
+
+	.balance-label {
+		margin: 0 0 10px;
+		color: #bcc5d4;
+		font-size: 15px;
+	}
+
+	.balance-card h2 {
+		margin: 0;
+		font-size: clamp(38px, 8vw, 56px);
+		letter-spacing: -2.5px;
+	}
+
+	.eye-button {
+		border: 0;
+		background: transparent;
+		color: white;
+		font-size: 24px;
+		cursor: pointer;
+	}
+
+	.quick-actions {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 12px;
+		margin: 22px 0 34px;
+	}
+
+	.action-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 9px;
+		color: #111827;
+		font-size: 13px;
+		font-weight: 700;
+		text-align: center;
+		text-decoration: none;
+	}
+
+	.action-icon {
+		width: 58px;
+		height: 58px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 18px;
+		background: white;
+		font-size: 25px;
+		box-shadow: 0 8px 22px rgba(17, 24, 39, 0.07);
+	}
+
+	.section-block {
+		margin-bottom: 32px;
+	}
+
+	.section-heading {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 14px;
+	}
+
+	.section-heading h2 {
+		margin: 0;
+		font-size: 22px;
+		letter-spacing: -0.8px;
+	}
+
+	.section-heading a {
+		color: #64748b;
+		font-size: 14px;
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	.account-list,
+	.activity-list {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.account-card,
+	.activity-item {
+		display: flex;
+		align-items: center;
+		padding: 16px;
+		border-radius: 20px;
+		background: white;
+		box-shadow: 0 8px 24px rgba(17, 24, 39, 0.04);
+	}
+
+	.account-icon,
+	.activity-icon {
+		flex: 0 0 auto;
+		width: 48px;
+		height: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 16px;
+		font-weight: 800;
+	}
+
+	.account-icon.euro {
+		background: #e9f0ff;
+		color: #2457d6;
+	}
+
+	.account-icon.savings {
+		background: #e9fbf3;
+		color: #0f8a5f;
+	}
+
+	.account-icon.investment {
+		background: #fff3df;
+		color: #c56a00;
+	}
+
+	.activity-icon {
+		background: #f0f2f5;
+	}
+
+	.account-info,
+	.activity-info {
+		flex: 1;
+		min-width: 0;
+		margin-left: 14px;
+	}
+
+	.account-info h3,
+	.activity-info h3 {
+		margin: 0 0 4px;
+		font-size: 16px;
+	}
+
+	.account-info p,
+	.activity-info p {
+		margin: 0;
+		color: #8a94a5;
+		font-size: 13px;
+	}
+
+	.account-value {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 4px;
+		margin-left: 12px;
+	}
+
+	.account-value strong {
+		font-size: 15px;
+	}
+
+	.account-value span {
+		color: #8a94a5;
+		font-size: 12px;
+	}
+
+	.positive {
+		color: #12966a !important;
+	}
+
+	.bottom-nav {
+		position: fixed;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 30;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		padding: 12px 16px 22px;
+		background: rgba(255, 255, 255, 0.94);
+		border-top: 1px solid #e7eaf0;
+		backdrop-filter: blur(18px);
+	}
+
+	.nav-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 5px;
+		color: #8a94a5;
+		font-size: 12px;
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	.nav-item span:first-child {
+		font-size: 21px;
+	}
+
+	.nav-item.active {
+		color: #111827;
+	}
+
+	@media (min-width: 900px) {
+		.app-shell {
+			padding-bottom: 30px;
+		}
+
+		.dashboard {
+			padding-top: 30px;
+		}
+
+		.bottom-nav {
+			width: 520px;
+			right: auto;
+			left: 50%;
+			bottom: 18px;
+			transform: translateX(-50%);
+			border: 1px solid #e7eaf0;
+			border-radius: 24px;
+			padding: 12px 18px;
+			box-shadow: 0 15px 40px rgba(17, 24, 39, 0.12);
+		}
+	}
+
+	@media (max-width: 520px) {
+		.topbar {
+			padding: 16px 18px;
+		}
+
+		.dashboard {
+			padding: 12px 16px 24px;
+		}
+
+		.balance-card {
+			padding: 24px 20px;
+			border-radius: 24px;
+		}
+
+		.quick-actions {
+			gap: 8px;
+		}
+
+		.action-icon {
+			width: 52px;
+			height: 52px;
+			border-radius: 16px;
+		}
+
+		.account-card,
+		.activity-item {
+			padding: 14px;
+		}
+	}
+</style>
